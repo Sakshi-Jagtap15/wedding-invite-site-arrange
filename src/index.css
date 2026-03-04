@@ -1,0 +1,266 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Lato:wght@100;200;300;400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Wedding Palette */
+    --background: 42 30% 96%;
+    --foreground: 20 15% 18%;
+
+    --card: 42 25% 98%;
+    --card-foreground: 20 15% 18%;
+
+    --popover: 42 25% 98%;
+    --popover-foreground: 20 15% 18%;
+
+    /* Champagne Gold */
+    --primary: 40 55% 52%;
+    --primary-foreground: 42 30% 96%;
+
+    /* Dusty Rose */
+    --secondary: 345 28% 72%;
+    --secondary-foreground: 20 15% 18%;
+
+    /* Muted ivory */
+    --muted: 42 20% 90%;
+    --muted-foreground: 20 10% 45%;
+
+    /* Accent - light gold tint */
+    --accent: 40 40% 88%;
+    --accent-foreground: 20 15% 18%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 42 30% 96%;
+
+    --border: 40 25% 82%;
+    --input: 40 25% 88%;
+    --ring: 40 55% 52%;
+    --radius: 0.25rem;
+
+    /* Custom Wedding Tokens */
+    --gold: 40 55% 52%;
+    --gold-light: 44 60% 70%;
+    --gold-dark: 38 50% 38%;
+    --maroon: 345 65% 25%;
+    --dusty-rose: 345 28% 72%;
+    --ivory: 42 30% 96%;
+    --ivory-deep: 40 25% 90%;
+    --charcoal: 20 15% 18%;
+
+    /* Gradients */
+    --gradient-hero: linear-gradient(180deg, rgba(20,14,8,0.55) 0%, rgba(20,14,8,0.3) 50%, rgba(20,14,8,0.65) 100%);
+    --gradient-gold: linear-gradient(135deg, hsl(44, 60%, 70%), hsl(40, 55%, 52%), hsl(38, 50%, 38%));
+    --gradient-section: linear-gradient(180deg, hsl(42, 30%, 96%) 0%, hsl(40, 25%, 92%) 100%);
+    --gradient-maroon: linear-gradient(135deg, hsl(345, 65%, 25%), hsl(345, 55%, 35%));
+
+    /* Shadows */
+    --shadow-gold: 0 4px 30px -8px hsl(40 55% 52% / 0.4);
+    --shadow-soft: 0 8px 40px -12px hsl(20 15% 18% / 0.15);
+    --shadow-card: 0 2px 20px -4px hsl(20 15% 18% / 0.12);
+
+    /* Sidebar */
+    --sidebar-background: 42 30% 96%;
+    --sidebar-foreground: 20 15% 18%;
+    --sidebar-primary: 40 55% 52%;
+    --sidebar-primary-foreground: 42 30% 96%;
+    --sidebar-accent: 40 40% 88%;
+    --sidebar-accent-foreground: 20 15% 18%;
+    --sidebar-border: 40 25% 82%;
+    --sidebar-ring: 40 55% 52%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3 {
+    font-family: 'Playfair Display', serif;
+  }
+}
+
+@layer utilities {
+  /* Typography */
+  .font-cormorant {
+    font-family: 'Cormorant Garamond', serif;
+  }
+  .font-playfair {
+    font-family: 'Playfair Display', serif;
+  }
+  .font-lato {
+    font-family: 'Lato', sans-serif;
+  }
+
+  /* Gold text */
+  .text-gold {
+    color: hsl(var(--gold));
+  }
+  .text-gold-light {
+    color: hsl(var(--gold-light));
+  }
+  .text-gold-dark {
+    color: hsl(var(--gold-dark));
+  }
+  .text-maroon {
+    color: hsl(var(--maroon));
+  }
+  .text-dusty-rose {
+    color: hsl(var(--dusty-rose));
+  }
+  .text-ivory {
+    color: hsl(var(--ivory));
+  }
+
+  /* Gold gradient text */
+  .text-gradient-gold {
+    background: var(--gradient-gold);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Backgrounds */
+  .bg-gold {
+    background-color: hsl(var(--gold));
+  }
+  .bg-maroon {
+    background-color: hsl(var(--maroon));
+  }
+  .bg-ivory {
+    background-color: hsl(var(--ivory));
+  }
+  .bg-gradient-gold {
+    background: var(--gradient-gold);
+  }
+  .bg-gradient-maroon {
+    background: var(--gradient-maroon);
+  }
+
+  /* Borders */
+  .border-gold {
+    border-color: hsl(var(--gold));
+  }
+  .border-gold-light {
+    border-color: hsl(var(--gold-light));
+  }
+  .border-maroon {
+    border-color: hsl(var(--maroon));
+  }
+
+  /* Mandala pattern overlay */
+  .mandala-bg {
+    position: relative;
+  }
+  .mandala-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Ccircle cx='100' cy='100' r='90' fill='none' stroke='%23c9a84c' stroke-width='0.5' opacity='0.3'/%3E%3Ccircle cx='100' cy='100' r='70' fill='none' stroke='%23c9a84c' stroke-width='0.5' opacity='0.3'/%3E%3Ccircle cx='100' cy='100' r='50' fill='none' stroke='%23c9a84c' stroke-width='0.5' opacity='0.3'/%3E%3Ccircle cx='100' cy='100' r='30' fill='none' stroke='%23c9a84c' stroke-width='0.5' opacity='0.3'/%3E%3Cpath d='M100 10 L110 90 L100 100 L90 90 Z' fill='%23c9a84c' opacity='0.08'/%3E%3Cpath d='M100 190 L110 110 L100 100 L90 110 Z' fill='%23c9a84c' opacity='0.08'/%3E%3Cpath d='M10 100 L90 110 L100 100 L90 90 Z' fill='%23c9a84c' opacity='0.08'/%3E%3Cpath d='M190 100 L110 110 L100 100 L110 90 Z' fill='%23c9a84c' opacity='0.08'/%3E%3C/svg%3E");
+    background-size: 300px 300px;
+    background-repeat: repeat;
+    opacity: 0.06;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Scroll animations */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .fade-in {
+    opacity: 0;
+    transition: opacity 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .fade-in.visible {
+    opacity: 1;
+  }
+  .slide-left {
+    opacity: 0;
+    transform: translateX(-50px);
+    transition: opacity 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .slide-left.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  .slide-right {
+    opacity: 0;
+    transform: translateX(50px);
+    transition: opacity 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .slide-right.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* Delay utilities */
+  .delay-100 { transition-delay: 0.1s; }
+  .delay-200 { transition-delay: 0.2s; }
+  .delay-300 { transition-delay: 0.3s; }
+  .delay-400 { transition-delay: 0.4s; }
+  .delay-500 { transition-delay: 0.5s; }
+  .delay-600 { transition-delay: 0.6s; }
+  .delay-700 { transition-delay: 0.7s; }
+  .delay-800 { transition-delay: 0.8s; }
+
+  /* Parallax */
+  .parallax-bg {
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+  }
+
+  /* Gold divider */
+  .gold-divider {
+    width: 80px;
+    height: 1px;
+    background: var(--gradient-gold);
+  }
+  .gold-divider-long {
+    width: 160px;
+    height: 1px;
+    background: var(--gradient-gold);
+  }
+
+  /* Scroll indicator */
+  @keyframes scroll-bounce {
+    0%, 100% { transform: translateY(0); opacity: 1; }
+    50% { transform: translateY(8px); opacity: 0.5; }
+  }
+  .scroll-bounce {
+    animation: scroll-bounce 2s ease-in-out infinite;
+  }
+
+  /* Number pulse */
+  @keyframes number-glow {
+    0%, 100% { text-shadow: 0 0 8px hsl(40 55% 52% / 0.3); }
+    50% { text-shadow: 0 0 24px hsl(40 55% 52% / 0.7); }
+  }
+  .number-glow {
+    animation: number-glow 2s ease-in-out infinite;
+  }
+}
