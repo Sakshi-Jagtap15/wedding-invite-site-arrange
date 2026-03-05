@@ -18,11 +18,12 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
-          <Route path="/:slug" element={<InvitePage />} />
+          {/* Dashboard FIRST */}
           <Route path="/dashboard/:slug" element={<Dashboard />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+          {/* Invite page AFTER */}
+          <Route path="/:slug" element={<InvitePage />} />
+  <Route path="*" element={<NotFound />} />
+</Routes>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
