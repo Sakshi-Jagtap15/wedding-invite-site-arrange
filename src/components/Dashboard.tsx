@@ -20,19 +20,22 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchResponses();
-  }, []);
+  if (!slug) return;
+
+  fetchResponses();
+}, [slug]);
 
   const fetchResponses = async () => {
 
-
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const db = supabase as any;
 
   const { data, error } = await db
     .from("rsvp_responses")
     .select("*")
     .eq("invitation_slug", slug);
+
+  console.log("Fetched data:", data);
 
   if (!error && data) {
     setResponses(data);
