@@ -43,7 +43,7 @@ const EventsSection = () => {
       venue: invitation?.sangeet_venue ?? 'Rajmahal Palace, Jaipur',
       image: eventSangeet,
       align: 'left' as const,
-      accent: 'hsl(var(--maroon))',
+      accent: 'hsl(var(--gold))',
     },
     {
       id: 'wedding',
