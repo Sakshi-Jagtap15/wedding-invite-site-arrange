@@ -13,28 +13,33 @@ interface RSVP {
 }
 
 export default function Dashboard() {
+
   const { slug } = useParams<{ slug: string }>();
+
   const [responses, setResponses] = useState<RSVP[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-  if (slug) {
     fetchResponses();
-  }
-}, [slug]);
+  }, []);
 
   const fetchResponses = async () => {
-    const { data, error } = await supabase
-      .from("rsvp_responses")
-      .select("*")
-      .eq("invitation_slug", slug);
 
-    if (!error && data) {
-      setResponses(data as RSVP[]);
-    }
 
-    setLoading(false);
-  };
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const db = supabase as any;
+
+  const { data, error } = await db
+    .from("rsvp_responses")
+    .select("*")
+    .eq("invitation_slug", slug);
+
+  if (!error && data) {
+    setResponses(data);
+  }
+
+  setLoading(false);
+};
 
   if (loading) return <div style={{ padding: 40 }}>Loading...</div>;
 
