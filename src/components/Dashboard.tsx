@@ -60,9 +60,57 @@ const guests = responses.reduce(
   if (loading) return <div style={{ padding: 40 }}>Loading...</div>;
 
   return (
-    <div style={{ padding: 40 }}>
-      <h1>RSVP Dashboard</h1>
-      <h3>Wedding: {slug}</h3>
+    <div
+    style={{
+    maxWidth: "1100px",
+    margin: "80px auto",
+    padding: "40px",
+    background: "white",
+    borderRadius: "14px",
+    boxShadow: "0 10px 30px rgba(0,0,0,0.06)",
+  }}
+>
+    <h1
+    style={{
+    fontFamily: "Playfair Display, serif",
+    fontSize: "34px",
+    marginBottom: "8px",
+  }}
+>
+    RSVP Dashboard
+    </h1>
+
+    <div
+  style={{
+    display: "grid",
+    gridTemplateColumns: "repeat(3, 1fr)",
+    gap: "20px",
+    marginBottom: "40px",
+  }}
+>
+  {[ 
+    { label: "Total RSVPs", value: total },
+    { label: "Attending Guests", value: attending },
+    { label: "Total Guests", value: guests }
+  ].map((card, i) => (
+    <div
+      key={i}
+      style={{
+        padding: "25px",
+        borderRadius: "12px",
+        background: "#fafafa",
+        border: "1px solid #eee",
+      }}
+    >
+      <p style={{ color: "#777", fontSize: "14px" }}>{card.label}</p>
+      <h2 style={{ marginTop: "8px" }}>{card.value}</h2>
+    </div>
+  ))}
+</div>
+
+<p style={{ color: "#777", marginBottom: "40px" }}>
+  Wedding Invitation: <strong>{slug}</strong>
+</p>
 
       <div
   style={{
