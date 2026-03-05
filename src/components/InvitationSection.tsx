@@ -31,21 +31,21 @@ const InvitationSection = () => {
           className="font-cormorant font-light text-foreground leading-tight mb-6 fade-up delay-200"
           style={{ fontSize: 'clamp(1.8rem, 4vw, 3rem)' }}
         >
-          With the blessings of their families,
+          With the blessings of our families,
         </h2>
 
         <p
           className="font-cormorant italic text-maroon fade-up delay-300"
           style={{ fontSize: 'clamp(1.4rem, 3vw, 2.2rem)' }}
         >
-          request the honour of your presence
+          we request the honour of your presence
         </p>
 
         <p
           className="font-cormorant font-light text-foreground mt-3 mb-10 fade-up delay-400"
           style={{ fontSize: 'clamp(1.4rem, 3vw, 2.2rem)' }}
         >
-          to celebrate their sacred wedding ceremony.
+          to celebrate our sacred wedding ceremony.
         </p>
 
         <div className="flex items-center justify-center gap-6 my-10 fade-up delay-500">
