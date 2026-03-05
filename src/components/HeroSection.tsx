@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { ChevronDown } from 'lucide-react';
-import heroBg from '@/assets/hero-bg.jpg';
+//import heroBg from '@/assets/hero-bg.jpg';
 import { useInvitation } from '@/contexts/InvitationContext';
 
 /* ─── Confetti Particle System ─── */
@@ -267,6 +267,7 @@ const HeroSection = () => {
   const brideName = invitation?.bride_name ?? 'Aanya';
   const groomName = invitation?.groom_name ?? 'Arjun';
   const city = invitation?.city ?? 'Jaipur, Rajasthan';
+  const heroImage = invitation?.hero_image ?? '/default-hero.jpg';
 
   // Format date for scratch card
   const formatScratchDate = () => {
@@ -296,7 +297,7 @@ const HeroSection = () => {
       id="hero"
       className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden"
       style={{
-        backgroundImage: `url(${heroBg})`,
+        backgroundImage: `url(${heroImage})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center top',
       }}

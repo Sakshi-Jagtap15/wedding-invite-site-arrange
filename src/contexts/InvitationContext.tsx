@@ -7,6 +7,7 @@ export interface Invitation {
   groom_name: string;
   wedding_date: string;
   venue: string;
+  hero_image?: string
   story: string | null;
   image_url: string | null;
   mehendi_date: string | null;
