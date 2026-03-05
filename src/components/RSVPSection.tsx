@@ -2,9 +2,11 @@ import { supabase } from "@/integrations/supabase/client";
 import { useState } from 'react';
 import rsvpBg from '@/assets/rsvp-bg.jpg';
 import { useInvitation } from '@/contexts/InvitationContext';
+import { useParams } from "react-router-dom";
 
 const RSVPSection = () => {
   const invitation = useInvitation();
+  const { slug } = useParams<{ slug: string }>();
   const brideName = invitation?.bride_name ?? 'Aanya';
   const groomName = invitation?.groom_name ?? 'Arjun';
   const rsvpDeadline = invitation?.rsvp_deadline ?? '1st November, 2026';
@@ -25,6 +27,7 @@ const RSVPSection = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+  
   const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
 
@@ -35,7 +38,7 @@ const RSVPSection = () => {
     .from("rsvp_responses")
     .insert([
       {
-        invitation_slug: invitation?.slug ?? window.location.pathname.replace("/", ""),
+        invitation_slug: slug,
         guest_name: form.name,
         email: form.email,
         phone: form.phone,
