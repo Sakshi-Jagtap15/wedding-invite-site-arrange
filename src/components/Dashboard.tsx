@@ -30,10 +30,11 @@ export default function Dashboard() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const db = supabase as any;
 
-  const { data, error } = await db
+    const { data, error } = await db
     .from("rsvp_responses")
     .select("*")
-    .eq("invitation_slug", slug);
+    .eq("invitation_slug", slug)
+    .order("created_at", { ascending: false });
 
    console.log("Fetching for slug:", slug);
    console.log("Fetched data:", data);
@@ -45,6 +46,16 @@ export default function Dashboard() {
 
   setLoading(false);
 };
+const total = responses.length;
+
+const attending = responses.filter(
+  r => r.attending === "Joyfully Accept"
+).length;
+
+const guests = responses.reduce(
+  (sum, r) => sum + r.guests,
+  0
+);
 
   if (loading) return <div style={{ padding: 40 }}>Loading...</div>;
 
