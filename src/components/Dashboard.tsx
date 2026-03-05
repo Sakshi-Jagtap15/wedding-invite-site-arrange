@@ -64,14 +64,80 @@ const guests = responses.reduce(
       <h1>RSVP Dashboard</h1>
       <h3>Wedding: {slug}</h3>
 
+      <div
+  style={{
+    display: "grid",
+    gridTemplateColumns: "repeat(3, 1fr)",
+    gap: "20px",
+    marginTop: "30px",
+    marginBottom: "40px",
+  }}
+>
+  <div
+    style={{
+      background: "white",
+      padding: "20px",
+      borderRadius: "10px",
+      boxShadow: "0 4px 10px rgba(0,0,0,0.05)",
+    }}
+  >
+    <h4>Total RSVPs</h4>
+    <h2>{total}</h2>
+  </div>
+
+  <div
+    style={{
+      background: "white",
+      padding: "20px",
+      borderRadius: "10px",
+      boxShadow: "0 4px 10px rgba(0,0,0,0.05)",
+    }}
+  >
+    <h4>Attending</h4>
+    <h2>{attending}</h2>
+  </div>
+
+  <div
+    style={{
+      background: "white",
+      padding: "20px",
+      borderRadius: "10px",
+      boxShadow: "0 4px 10px rgba(0,0,0,0.05)",
+    }}
+  >
+    <h4>Total Guests</h4>
+    <h2>{guests}</h2>
+  </div>
+</div>
+
     <div style={{ marginTop: 20, marginBottom: 20 }}>
         <p><strong>Total RSVPs:</strong> {total}</p>
         <p><strong>Attending:</strong> {attending}</p>
         <p><strong>Total Guests:</strong> {guests}</p>
     </div>
 
-      <table border={1} cellPadding={10} style={{ marginTop: 20 }}>
-        <thead>
+    <button
+        style={{
+            padding: "10px 16px",
+            background: "#111",
+            color: "white",
+            borderRadius: "6px",
+            marginBottom: "20px",
+        }}
+        >
+        Download Guest List
+    </button>
+      <table
+        style={{
+            width: "100%",
+            borderCollapse: "collapse",
+            background: "white",
+            borderRadius: "10px",
+            overflow: "hidden",
+            boxShadow: "0 4px 10px rgba(0,0,0,0.05)",
+        }}
+    >
+        <thead style={{ background: "#f8f8f8" }}>
           <tr>
             <th>Name</th>
             <th>Email</th>
@@ -89,7 +155,19 @@ const guests = responses.reduce(
               <td>{r.email}</td>
               <td>{r.phone}</td>
               <td>{r.guests}</td>
-              <td>{r.attending}</td>
+              <td>
+                <span
+                    style={{
+                    background: r.attending === "yes" ? "#d1fae5" : "#fee2e2",
+                    color: r.attending === "yes" ? "#065f46" : "#7f1d1d",
+                    padding: "5px 10px",
+                    borderRadius: "6px",
+                    fontSize: "12px",
+                    }}
+                >
+                    {r.attending}
+                </span>
+                </td>
               <td>{r.message}</td>
             </tr>
           ))}
