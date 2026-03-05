@@ -17,7 +17,7 @@ const Navigation = () => {
     audio.loop = true;
     audio.volume = 0.20;
     audioRef.current = audio;
-    audio.muted = true;
+    audio.muted = false;
     audio.play().catch(() => {});
     return () => { audio.pause(); audio.src = ''; };
   }, []);
