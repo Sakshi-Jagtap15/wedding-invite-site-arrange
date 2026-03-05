@@ -64,6 +64,12 @@ const guests = responses.reduce(
       <h1>RSVP Dashboard</h1>
       <h3>Wedding: {slug}</h3>
 
+    <div style={{ marginTop: 20, marginBottom: 20 }}>
+        <p><strong>Total RSVPs:</strong> {total}</p>
+        <p><strong>Attending:</strong> {attending}</p>
+        <p><strong>Total Guests:</strong> {guests}</p>
+    </div>
+
       <table border={1} cellPadding={10} style={{ marginTop: 20 }}>
         <thead>
           <tr>
