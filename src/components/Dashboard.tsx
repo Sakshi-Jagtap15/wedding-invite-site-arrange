@@ -49,7 +49,7 @@ export default function Dashboard() {
 const total = responses.length;
 
 const attending = responses.filter(
-  r => r.attending === "Joyfully Accept"
+  r => r.attending === "yes"
 ).length;
 
 const guests = responses.reduce(
