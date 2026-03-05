@@ -5,7 +5,7 @@ import { useInvitation } from '@/contexts/InvitationContext';
 const Navigation = () => {
   const invitation = useInvitation();
   const [scrolled, setScrolled] = useState(false);
-  const [musicOn, setMusicOn] = useState(false);
+  const [musicOn, setMusicOn] = useState(true);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const brideName = invitation?.bride_name ?? 'Aanya';
