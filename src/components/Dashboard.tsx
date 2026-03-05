@@ -15,7 +15,7 @@ interface RSVP {
 export default function Dashboard() {
 
   const { slug } = useParams<{ slug: string }>();
-
+  console.log("Slug from URL:", slug);
   const [responses, setResponses] = useState<RSVP[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -35,7 +35,9 @@ export default function Dashboard() {
     .select("*")
     .eq("invitation_slug", slug);
 
-  console.log("Fetched data:", data);
+   console.log("Fetching for slug:", slug);
+   console.log("Fetched data:", data);
+   console.log("Error:", error);
 
   if (!error && data) {
     setResponses(data);
