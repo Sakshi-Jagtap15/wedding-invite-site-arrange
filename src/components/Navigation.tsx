@@ -42,6 +42,23 @@ const Navigation = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+  const startMusic = () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    audio.muted = false;
+    audio.play().catch(() => {});
+    setMusicOn(true);
+
+    document.removeEventListener("click", startMusic);
+  };
+
+  document.addEventListener("click", startMusic);
+
+  return () => document.removeEventListener("click", startMusic);
+}, []);
+
   const navLinks = [
     { label: 'Events', href: '#events' },
     { label: 'Gallery', href: '#gallery' },
