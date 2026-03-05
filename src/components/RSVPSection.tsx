@@ -1,3 +1,4 @@
+import { supabase } from "@/integrations/supabase/client";
 import { useState } from 'react';
 import rsvpBg from '@/assets/rsvp-bg.jpg';
 import { useInvitation } from '@/contexts/InvitationContext';
@@ -24,10 +25,32 @@ const RSVPSection = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const db = supabase as any;
+
+  const { error } = await db
+    .from("rsvp_responses")
+    .insert([
+      {
+        invitation_slug: invitation?.slug ?? window.location.pathname.replace("/", ""),
+        guest_name: form.name,
+        email: form.email,
+        phone: form.phone,
+        guests: Number(form.guests),
+        attending: form.attending,
+        message: form.message
+      }
+    ]);
+
+  if (!error) {
     setSubmitted(true);
-  };
+  } else {
+    alert("Something went wrong. Please try again.");
+  }
+};
 
   const inputClass =
     'w-full bg-white/60 border border-foreground/10 rounded-sm px-4 py-3 font-lato font-light text-foreground text-sm outline-none transition-all duration-300 placeholder:text-foreground/30 focus:border-gold focus:bg-white/80';
