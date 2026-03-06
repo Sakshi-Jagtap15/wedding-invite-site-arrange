@@ -13,20 +13,14 @@ const Navigation = () => {
   const initials = `${brideName.charAt(0)} & ${groomName.charAt(0)}`;
 
   useEffect(() => {
-  const audio = new Audio('/music/Aaj Se Teri.mp3');
-  audio.loop = true;
-  audio.volume = 0.20;
-
-  // Start muted to unlock autoplay permission
-  audio.muted = true;
-
-  audioRef.current = audio;
-
-  return () => {
-    audio.pause();
-    audio.src = '';
-  };
-}, []);
+    const audio = new Audio('/music/Aaj Se Teri.mp3');
+    audio.loop = true;
+    audio.volume = 0.20;
+    audioRef.current = audio;
+    audio.muted = false;
+    audio.play().catch(() => {});
+    return () => { audio.pause(); audio.src = ''; };
+  }, []);
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -43,33 +37,26 @@ const Navigation = () => {
   }, [musicOn]);
 
   useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 80);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
   const startMusic = () => {
     const audio = audioRef.current;
     if (!audio) return;
 
     audio.muted = false;
+    audio.play().catch(() => {});
+    setMusicOn(true);
 
-    audio.play()
-      .then(() => setMusicOn(true))
-      .catch(() => {});
-
-    window.removeEventListener("scroll", startMusic);
-    window.removeEventListener("touchstart", startMusic);
-    window.removeEventListener("mousemove", startMusic);
     document.removeEventListener("click", startMusic);
   };
 
-  window.addEventListener("scroll", startMusic);
-  window.addEventListener("touchstart", startMusic);
-  window.addEventListener("mousemove", startMusic);
   document.addEventListener("click", startMusic);
 
-  return () => {
-    window.removeEventListener("scroll", startMusic);
-    window.removeEventListener("touchstart", startMusic);
-    window.removeEventListener("mousemove", startMusic);
-    document.removeEventListener("click", startMusic);
-  };
+  return () => document.removeEventListener("click", startMusic);
 }, []);
 
   const navLinks = [
