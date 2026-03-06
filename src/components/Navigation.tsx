@@ -43,20 +43,24 @@ const Navigation = () => {
 
     audio.muted = false;
 
-    audio.play().catch(() => {});
-    setMusicOn(true);
+    audio.play()
+      .then(() => setMusicOn(true))
+      .catch(() => {});
 
     window.removeEventListener("scroll", startMusic);
+    window.removeEventListener("mousemove", startMusic);
     window.removeEventListener("touchstart", startMusic);
     document.removeEventListener("click", startMusic);
   };
 
   window.addEventListener("scroll", startMusic);
+  window.addEventListener("mousemove", startMusic);
   window.addEventListener("touchstart", startMusic);
   document.addEventListener("click", startMusic);
 
   return () => {
     window.removeEventListener("scroll", startMusic);
+    window.removeEventListener("mousemove", startMusic);
     window.removeEventListener("touchstart", startMusic);
     document.removeEventListener("click", startMusic);
   };
