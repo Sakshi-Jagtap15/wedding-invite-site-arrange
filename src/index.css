@@ -89,6 +89,17 @@
     overflow-x: hidden;
   }
 
+    /* Hide vertical scrollbar but keep scrolling */
+
+  body::-webkit-scrollbar {
+    display: none;
+  }
+
+  body {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
   h1, h2, h3 {
     font-family: 'Playfair Display', serif;
   }
