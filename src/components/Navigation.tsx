@@ -37,26 +37,29 @@ const Navigation = () => {
   }, [musicOn]);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 80);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  useEffect(() => {
   const startMusic = () => {
     const audio = audioRef.current;
     if (!audio) return;
 
     audio.muted = false;
+
     audio.play().catch(() => {});
     setMusicOn(true);
 
+    window.removeEventListener("scroll", startMusic);
+    window.removeEventListener("touchstart", startMusic);
     document.removeEventListener("click", startMusic);
   };
 
+  window.addEventListener("scroll", startMusic);
+  window.addEventListener("touchstart", startMusic);
   document.addEventListener("click", startMusic);
 
-  return () => document.removeEventListener("click", startMusic);
+  return () => {
+    window.removeEventListener("scroll", startMusic);
+    window.removeEventListener("touchstart", startMusic);
+    document.removeEventListener("click", startMusic);
+  };
 }, []);
 
   const navLinks = [
