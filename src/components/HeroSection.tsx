@@ -327,7 +327,7 @@ const HeroSection = () => {
           className={`font-cormorant italic text-gold-light my-1 transition-all duration-1000 ease-out ${
             loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
-          style={{ fontSize: 'clamp(1.6rem, 4.5vw, 3.5rem)', transitionDelay: '0.7s' }}
+          style={{ fontSize: 'clamp(3.8rem, 11vw, 7.5rem)', transitionDelay: '0.7s' }}
         >
           &
         </div>
@@ -336,7 +336,7 @@ const HeroSection = () => {
           className={`font-cormorant font-light tracking-[0.12em] text-ivory leading-none transition-all duration-1000 ease-out ${
             loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
-          style={{ fontSize: 'clamp(3rem, 9vw, 7.5rem)', transitionDelay: '1.1s' }}
+          style={{ fontSize: 'clamp(3.8rem, 11vw, 7.5rem)', transitionDelay: '1.1s' }}
         >
           {groomName}
         </h1>
@@ -349,7 +349,7 @@ const HeroSection = () => {
         />
 
         <p
-          className={`font-lato font-light tracking-[0.3em] text-ivory/80 uppercase text-sm mb-6 transition-all duration-1000 ease-out ${
+          className={`font-lato font-light tracking-[0.3em] text-ivory/80 uppercase text-base md:text-sm mb-6 transition-all duration-1000 ease-out ${
             loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
           }`}
           style={{ transitionDelay: '1.6s' }}
@@ -367,7 +367,7 @@ const HeroSection = () => {
         </div>
 
         <p
-          className={`font-lato font-light tracking-[0.2em] text-ivory/60 uppercase text-xs transition-all duration-1000 ease-out ${
+          className={`font-lato font-light tracking-[0.2em] text-ivory/60 uppercase text-sm md:text-xs transition-all duration-1000 ease-out ${
             loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
           }`}
           style={{ transitionDelay: '2.1s' }}
