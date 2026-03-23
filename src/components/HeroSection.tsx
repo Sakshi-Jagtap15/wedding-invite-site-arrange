@@ -209,22 +209,22 @@ const ScratchDate = ({
 
   return (
     <div
-      className="relative inline-block select-none"
+      className="relative inline-block select-none w-[90vw] max-w-[420px] h-[80px] sm:h-[90px]"
       style={{ cursor: revealed ? 'default' : 'crosshair' }}
     >
       <p
         className="font-cormorant italic text-gold-light tracking-wider"
-        style={{ fontSize: 'clamp(2rem, 5.5vw, 3.8rem)' }}
+        style={{ fontSize: 'clamp(1.6rem, 5vw, 3rem)' }}
       >
         {dateLabel}
       </p>
 
       {!revealed && visible && (
         <canvas
-          ref={canvasRef}
-          width={340}
-          height={70}
-          className="absolute inset-0 w-full h-full touch-none"
+           ref={canvasRef}
+           width={600}   // internal resolution (important)
+           height={160}
+           className="absolute inset-0 w-full h-full touch-none"
           style={{ borderRadius: '4px' }}
           onMouseDown={(e) => { isDrawing.current = true; setScratching(true); scratch(e); }}
           onMouseMove={scratch}
@@ -318,7 +318,7 @@ const HeroSection = () => {
           className={`font-cormorant font-light tracking-[0.12em] text-ivory leading-none transition-all duration-1000 ease-out ${
             loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
-          style={{ fontSize: 'clamp(3rem, 9vw, 7.5rem)', transitionDelay: '0.3s' }}
+          style={{ fontSize: 'clamp(2.5rem, 8vw, 6rem)', transitionDelay: '0.3s' }}
         >
           {brideName}
         </h1>
@@ -327,7 +327,7 @@ const HeroSection = () => {
           className={`font-cormorant italic text-gold-light my-1 transition-all duration-1000 ease-out ${
             loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
-          style={{ fontSize: 'clamp(3.8rem, 11vw, 7.5rem)', transitionDelay: '0.7s' }}
+          style={{ fontSize: 'clamp(2.5rem, 8vw, 6rem)', transitionDelay: '0.7s' }}
         >
           &
         </div>
@@ -336,7 +336,7 @@ const HeroSection = () => {
           className={`font-cormorant font-light tracking-[0.12em] text-ivory leading-none transition-all duration-1000 ease-out ${
             loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
-          style={{ fontSize: 'clamp(3.8rem, 11vw, 7.5rem)', transitionDelay: '1.1s' }}
+          style={{ fontSize: 'clamp(2.5rem, 8vw, 6rem)', transitionDelay: '1.1s' }}
         >
           {groomName}
         </h1>
