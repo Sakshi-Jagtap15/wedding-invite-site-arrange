@@ -190,7 +190,8 @@ const ScratchDate = ({
     const { x, y } = getPos(e);
     ctx.globalCompositeOperation = 'destination-out';
     ctx.beginPath();
-    ctx.arc(x, y, 30, 0, Math.PI * 2);
+    const radius = window.innerWidth < 768 ? 45 : 30;
+    ctx.arc(x, y, radius, 0, Math.PI * 2);
     ctx.fill();
 
     const data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
@@ -199,7 +200,7 @@ const ScratchDate = ({
       if (data[i] === 0) cleared++;
     }
     const pct = cleared / (canvas.width * canvas.height);
-    if (pct > 0.55 && !hasRevealedRef.current) {
+    if (pct > 0.45 && !hasRevealedRef.current) {
       hasRevealedRef.current = true;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       setRevealed(true);
@@ -238,7 +239,7 @@ const ScratchDate = ({
 
       {!scratching && !revealed && visible && (
         <span
-          className="absolute -top-5 left-1/2 -translate-x-1/2 text-gold/70 animate-bounce pointer-events-none font-lato"
+          className="absolute -top-6 sm:-top-5 left-1/2 -translate-x-1/2 text-gold/70 animate-bounce pointer-events-none font-lato"
           style={{ fontSize: '9px', letterSpacing: '0.15em', whiteSpace: 'nowrap' }}
         >
           ✦ scratch me ✦
@@ -358,13 +359,17 @@ const HeroSection = () => {
         </p>
 
         <div
-          className={`flex justify-center mb-2 transition-all duration-1000 ease-out ${
-            loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
-          }`}
-          style={{ transitionDelay: '1.9s' }}
-        >
-          <ScratchDate visible={showScratch} onRevealed={handleRevealed} dateLabel={formatScratchDate()} />
-        </div>
+  className={`flex justify-center mb-2 px-2 transition-all duration-1000 ease-out ${
+    loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+  }`}
+  style={{ transitionDelay: '1.9s' }}
+>
+  <ScratchDate
+    visible={showScratch}
+    onRevealed={handleRevealed}
+    dateLabel={formatScratchDate()}
+  />
+</div>
 
         <p
           className={`font-lato font-light tracking-[0.2em] text-ivory/60 uppercase text-sm md:text-xs transition-all duration-1000 ease-out ${
