@@ -210,15 +210,20 @@ const ScratchDate = ({
 
   return (
     <div
-      className="relative inline-block select-none w-[90vw] max-w-[420px] h-[80px] sm:h-[90px]"
+      className="relative inline-block select-none w-[90vw] max-w-[420px] h-[90px] sm:h-[110px]"
       style={{ cursor: revealed ? 'default' : 'crosshair' }}
     >
-      <p
-        className="font-cormorant italic text-gold-light tracking-wider"
-        style={{ fontSize: 'clamp(1.6rem, 5vw, 3rem)' }}
-      >
-        {dateLabel}
-      </p>
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+  <p
+    className="font-cormorant font-medium italic text-gold-light tracking-[0.12em]"
+    style={{
+      fontSize: 'clamp(2.4rem, 8vw, 4.5rem)',
+      textShadow: '0 2px 10px rgba(0,0,0,0.3)'
+    }}
+  >
+    {dateLabel}
+  </p>
+</div>
 
       {!revealed && visible && (
         <canvas
