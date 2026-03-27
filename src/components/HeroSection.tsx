@@ -321,28 +321,28 @@ const HeroSection = () => {
         />
 
         <h1
-          className={`font-cormorant font-light tracking-[0.12em] text-ivory leading-none transition-all duration-1000 ease-out ${
+          className={`font-cormorant font-light tracking-[0.06em] sm:tracking-[0.12em] text-ivory leading-none text-5xl sm:text-6xl md:text-7xl lg:text-8xl transition-all duration-1000 ease-out ${
             loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
-          style={{ fontSize: 'clamp(2.5rem, 8vw, 6rem)', transitionDelay: '0.3s' }}
+          style={{ transitionDelay: '0.3s' }}
         >
           {brideName}
         </h1>
 
         <div
-          className={`font-cormorant italic text-gold-light my-1 transition-all duration-1000 ease-out ${
+          className={`font-cormorant italic text-gold-light my-1 text-4xl sm:text-5xl md:text-6xl transition-all duration-1000 ease-out ${
             loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
-          style={{ fontSize: 'clamp(2.5rem, 8vw, 6rem)', transitionDelay: '0.7s' }}
+          style={{ transitionDelay: '0.7s' }}
         >
           &
         </div>
 
         <h1
-          className={`font-cormorant font-light tracking-[0.12em] text-ivory leading-none transition-all duration-1000 ease-out ${
+          className={`font-cormorant font-light tracking-[0.06em] sm:tracking-[0.12em] text-ivory leading-none text-5xl sm:text-6xl md:text-7xl lg:text-8xl transition-all duration-1000 ease-out ${
             loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
-          style={{ fontSize: 'clamp(2.5rem, 8vw, 6rem)', transitionDelay: '1.1s' }}
+          style={{ transitionDelay: '1.1s' }}
         >
           {groomName}
         </h1>
