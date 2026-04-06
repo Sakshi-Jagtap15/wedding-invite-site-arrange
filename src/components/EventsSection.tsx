@@ -23,7 +23,7 @@ const EventsSection = ({ events }: { events: EventType[] }) => {
     date: event.date,
     time: event.time,
     venue: event.location,
-    image: eventWedding, // later you can make dynamic
+    image: getEventImage(event.title),  
     align: index % 2 === 0 ? 'left' : 'right',
     accent: 'hsl(var(--gold))',
   }));
