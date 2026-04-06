@@ -14,6 +14,26 @@ interface EventType {
 
 const EventsSection = ({ events }: { events: EventType[] }) => {
 
+  // ✅ FIX: define function BEFORE using it
+  const getEventImage = (title: string) => {
+    const name = title.toLowerCase();
+
+    if (name.includes("haldi")) return haldiImg;
+
+    if (
+      name.includes("saptapadi") ||
+      name.includes("pheras") ||
+      name.includes("phere")
+    ) return saptapadiImg;
+
+    if (
+      name.includes("wedding") ||
+      name.includes("marriage")
+    ) return weddingImg;
+
+    return weddingImg; // fallback
+  };
+
   // ✅ Map DB data to your luxury UI format
   const mappedEvents = events.map((event, index) => ({
     id: event.id,
@@ -23,19 +43,10 @@ const EventsSection = ({ events }: { events: EventType[] }) => {
     date: event.date,
     time: event.time,
     venue: event.location,
-    image: getEventImage(event.title),  
+    image: getEventImage(event.title), // ✅ FIXED
     align: index % 2 === 0 ? 'left' : 'right',
     accent: 'hsl(var(--gold))',
   }));
-  const getEventImage = (title: string) => {
-  const name = title.toLowerCase();
-
-  if (name.includes("haldi")) return haldiImg;
-  if (name.includes("saptapadi")) return saptapadiImg;
-  if (name.includes("wedding")) return weddingImg;
-
-  return weddingImg; // fallback
-};
 
   // ✅ Empty state
   if (mappedEvents.length === 0) {
@@ -69,13 +80,12 @@ const EventsSection = ({ events }: { events: EventType[] }) => {
         </p>
       </div>
 
-      {/* 🔥 IMPORTANT FIX HERE */}
       {mappedEvents.map((event) => (
         <div
           key={event.id}
           className="min-h-screen relative flex items-center overflow-hidden"
           style={{
-            backgroundImage: `url(${event.image})`  ,
+            backgroundImage: `url(${event.image})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundAttachment: 'fixed',
