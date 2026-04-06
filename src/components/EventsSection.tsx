@@ -1,4 +1,7 @@
 import eventWedding from '@/assets/event-wedding.jpg';
+import haldiImg from "@/assets/event-haldi.jpg";
+import saptapadiImg from "@/assets/event-saptapadi.jpg";
+import weddingImg from "@/assets/event-wedding.jpg";
 
 interface EventType {
   id: string;
@@ -24,6 +27,15 @@ const EventsSection = ({ events }: { events: EventType[] }) => {
     align: index % 2 === 0 ? 'left' : 'right',
     accent: 'hsl(var(--gold))',
   }));
+  const getEventImage = (title: string) => {
+  const name = title.toLowerCase();
+
+  if (name.includes("haldi")) return haldiImg;
+  if (name.includes("saptapadi")) return saptapadiImg;
+  if (name.includes("wedding")) return weddingImg;
+
+  return weddingImg; // fallback
+};
 
   // ✅ Empty state
   if (mappedEvents.length === 0) {
@@ -63,7 +75,7 @@ const EventsSection = ({ events }: { events: EventType[] }) => {
           key={event.id}
           className="min-h-screen relative flex items-center overflow-hidden"
           style={{
-            backgroundImage: `url(${event.image})`,
+            backgroundImage: `url(${event.image})`  ,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundAttachment: 'fixed',
