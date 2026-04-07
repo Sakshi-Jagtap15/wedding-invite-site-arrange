@@ -5,12 +5,11 @@ import gallery1 from '@/assets/gallery-1.jpg';
 import gallery2 from '@/assets/gallery-2.jpg';
 import gallery3 from '@/assets/gallery-3.jpg';
 
-type EventType = {
+type InvitationType = {
   gallery_images?: string[];
-  city?: string; // ✅ added for filtering client
 };
 
-const GallerySection = ({ events }: { events: EventType[] }) => {
+const GallerySection = ({ invitation }: { invitation: InvitationType | null }) => {
   const [lightbox, setLightbox] = useState<string | null>(null);
 
   // ✅ Default template images
@@ -20,15 +19,10 @@ const GallerySection = ({ events }: { events: EventType[] }) => {
     { src: gallery3, alt: 'Default 3', span: '' },
   ];
 
-  // 🔥 Find correct client (CHANGE city as per your client)
-  const clientEvent = events?.find(
-    (event) => event.city === "Handewadi, Pune"
-  );
-
-  // ✅ Final images logic
+  // ✅ Final images logic (clean + correct)
   const images =
-    clientEvent?.gallery_images?.length
-      ? clientEvent.gallery_images.map((img: string) => ({
+    invitation?.gallery_images?.length
+      ? invitation.gallery_images.map((img: string) => ({
           src: img,
           alt: 'Wedding moment',
           span: '',

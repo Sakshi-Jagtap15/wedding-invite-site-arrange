@@ -12,6 +12,8 @@ import FamilySection from '@/components/FamilySection';
 import RSVPSection from '@/components/RSVPSection';
 import WeddingFooter from '@/components/WeddingFooter';
 
+
+// ✅ TYPES
 type EventType = {
   id: string;
   title: string;
@@ -19,22 +21,34 @@ type EventType = {
   time: string;
   location: string;
   description?: string;
-  gallery_images?: string[];
+  invitation_id?: string;
 };
 
-const Index = () => {
-  const [events, setEvents] = useState<EventType[]>([]);
+type InvitationType = {
+  id: string;
+  city?: string;
+  gallery_images?: string[];
+  hero_image?: string;
+};
 
+
+const Index = () => {
+  // ✅ STATE
+  const [events, setEvents] = useState<EventType[]>([]);
+  const [invitation, setInvitation] = useState<InvitationType | null>(null);
+
+  // ✅ FETCH EVENTS
   useEffect(() => {
     const fetchEvents = async () => {
       const { data, error } = await supabase
-        .from('invitations')
-        .select('*');
+        .from('events')
+        .select('*')
+        .eq('invitation_id', '4c09bb8'); // 👈 your id
 
       if (error) {
-        console.error('Error fetching events:', error);
+        console.error('Events error:', error);
       } else {
-        console.log('Fetched Events:', data);
+        console.log('Events:', data);
         setEvents(data || []);
       }
     };
@@ -42,6 +56,27 @@ const Index = () => {
     fetchEvents();
   }, []);
 
+  // ✅ FETCH INVITATION (for gallery)
+  useEffect(() => {
+    const fetchInvitation = async () => {
+      const { data, error } = await supabase
+        .from('invitations')
+        .select('*')
+        .eq('id', '4c09bb8') // 👈 same id
+        .single();
+
+      if (error) {
+        console.error('Invitation error:', error);
+      } else {
+        console.log('Invitation:', data);
+        setInvitation(data);
+      }
+    };
+
+    fetchInvitation();
+  }, []);
+
+  // ✅ ANIMATION (unchanged)
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -70,11 +105,11 @@ const Index = () => {
         <InvitationSection />
         <CountdownSection />
 
-        {/* ✅ SAME as before */}
+        {/* ✅ EVENTS */}
         <EventsSection events={events} />
 
-        {/* ✅ SAME as before */}
-        <GallerySection events={events} />
+        {/* ✅ FIXED: now using invitation */}
+        <GallerySection invitation={invitation} />
 
         <FamilySection />
         <RSVPSection />
