@@ -12,8 +12,6 @@ import FamilySection from '@/components/FamilySection';
 import RSVPSection from '@/components/RSVPSection';
 import WeddingFooter from '@/components/WeddingFooter';
 
-
-// ✅ TYPES
 type EventType = {
   id: string;
   title: string;
@@ -21,34 +19,23 @@ type EventType = {
   time: string;
   location: string;
   description?: string;
-  invitation_id?: string;
-};
-
-type InvitationType = {
-  id: string;
-  city?: string;
   gallery_images?: string[];
-  hero_image?: string;
 };
-
-
 const Index = () => {
-  // ✅ STATE
+  // ✅ STEP 1: create events state
   const [events, setEvents] = useState<EventType[]>([]);
-  const [invitation, setInvitation] = useState<InvitationType | null>(null);
 
-  // ✅ FETCH EVENTS
+  // ✅ STEP 2: fetch data from Supabase
   useEffect(() => {
     const fetchEvents = async () => {
       const { data, error } = await supabase
-        .from('events')
-        .select('*')
-        .eq('invitation_id', '4c09bb8'); // 👈 your id
+        .from('invitations')
+        .select('*'); // make sure gallery_images is included
 
       if (error) {
-        console.error('Events error:', error);
+        console.error('Error fetching events:', error);
       } else {
-        console.log('Events:', data);
+        console.log('Fetched Events:', data); // 🔍 debug
         setEvents(data || []);
       }
     };
@@ -56,27 +43,7 @@ const Index = () => {
     fetchEvents();
   }, []);
 
-  // ✅ FETCH INVITATION (for gallery)
-  useEffect(() => {
-    const fetchInvitation = async () => {
-      const { data, error } = await supabase
-        .from('invitations')
-        .select('*')
-        .eq('id', '4c09bb8') // 👈 same id
-        .single();
-
-      if (error) {
-        console.error('Invitation error:', error);
-      } else {
-        console.log('Invitation:', data);
-        setInvitation(data);
-      }
-    };
-
-    fetchInvitation();
-  }, []);
-
-  // ✅ ANIMATION (unchanged)
+  // ✅ existing animation logic (unchanged)
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -105,11 +72,11 @@ const Index = () => {
         <InvitationSection />
         <CountdownSection />
 
-        {/* ✅ EVENTS */}
+        {/* ✅ PASS events here if needed */}
         <EventsSection events={events} />
 
-        {/* ✅ FIXED: now using invitation */}
-        <GallerySection invitation={invitation} />
+        {/* ✅ FIXED: now events is defined */}
+        <GallerySection events={events} />
 
         <FamilySection />
         <RSVPSection />
