@@ -31,6 +31,7 @@ export interface Invitation {
   rsvp_deadline: string | null;
   city: string | null;
   gallery_images?: string[];
+  primary_side?: 'bride' | 'groom';
 }
 
 export const InvitationContext = createContext<Invitation | null>(null);
