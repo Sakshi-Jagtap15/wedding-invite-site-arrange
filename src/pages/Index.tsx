@@ -39,7 +39,7 @@ const Index = () => {
         <InvitationSection />
         <CountdownSection />
         <EventsSection />
-        <GallerySection />
+        <GallerySection events={events} />
         <FamilySection />
         <RSVPSection />
         <WeddingFooter />

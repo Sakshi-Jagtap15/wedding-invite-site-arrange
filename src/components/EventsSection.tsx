@@ -10,10 +10,12 @@ interface EventType {
   time: string;
   location: string;
   description?: string;
+  gallery_images?: string[];
 }
 
 const EventsSection = ({ events }: { events: EventType[] }) => {
 
+  console.log(events);
   // ✅ FIX: define function BEFORE using it
   const getEventImage = (title: string) => {
     const name = title.toLowerCase();
