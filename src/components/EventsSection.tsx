@@ -146,7 +146,7 @@ const EventsSection = ({ events }: { events: EventType[] }) => {
               </p>
 
               {/* Details */}
-              <div className={`space-y-2 mb-8 ${event.align === 'right' ? 'text-right' : ''}`}>
+              <div className={`space-y-2 mb-8 text-white ${event.align === 'right' ? 'text-right' : ''}`}>
                 <p><strong>Date:</strong> {event.date}</p>
                 <p><strong>Time:</strong> {event.time}</p>
                 <p><strong>Venue:</strong> {event.venue}</p>
