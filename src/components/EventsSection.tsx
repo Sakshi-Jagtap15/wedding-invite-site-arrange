@@ -126,10 +126,10 @@ const EventsSection = ({ events }: { events: EventType[] }) => {
 
               {/* Title */}
               <h2
-                className={`text-ivory mb-4 ${
+                className={`text-gradient-gold pb-1 mb-3 ${
                   event.align === 'right' ? 'text-right' : ''
                 }`}
-                style={{ fontSize: 'clamp(3rem, 7vw, 5.5rem)' }}
+                style={{ fontSize: 'clamp(3rem, 7vw, 5.5rem)', lineHeight: 1.2 }}
               >
                 {event.name}
               </h2>
