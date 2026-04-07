@@ -30,6 +30,7 @@ export interface Invitation {
   groom_mother: string | null;
   rsvp_deadline: string | null;
   city: string | null;
+  gallery_images?: string[];
 }
 
 export const InvitationContext = createContext<Invitation | null>(null);

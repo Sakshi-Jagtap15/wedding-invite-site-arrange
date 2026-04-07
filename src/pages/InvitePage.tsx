@@ -149,7 +149,7 @@ const InvitePage = () => {
         {/* 🔥 Dynamic Events */}
         <EventsSection events={events} />
 
-        <GallerySection />
+        <GallerySection invitation={invitation} />
         <FamilySection />
         <RSVPSection />
         <WeddingFooter />

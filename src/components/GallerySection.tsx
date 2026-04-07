@@ -1,22 +1,34 @@
 import { useState } from 'react';
 
-type EventType = {
-  gallery_images?: string[];
-};
-const GallerySection = ({ events }: { events: EventType[] }) => {
-  console.log("Gallery Events:", events);
+// Default mock images
+import gallery1 from '@/assets/gallery-1.jpg';
+import gallery2 from '@/assets/gallery-2.jpg';
+import gallery3 from '@/assets/gallery-3.jpg';
+import gallery4 from '@/assets/gallery-4.jpg';
+import gallery5 from '@/assets/gallery-5.jpg';
 
+const DEFAULT_IMAGES = [
+  { src: gallery1, alt: "Wedding moment 1" },
+  { src: gallery2, alt: "Wedding moment 2" },
+  { src: gallery3, alt: "Wedding moment 3" },
+  { src: gallery4, alt: "Wedding moment 4" },
+  { src: gallery5, alt: "Wedding moment 5" },
+];
+
+export interface InvitationData {
+  gallery_images?: string[] | null;
+}
+
+const GallerySection = ({ invitation }: { invitation?: InvitationData | null }) => {
   const [lightbox, setLightbox] = useState<string | null>(null);
 
-  // ✅ Get ALL images from ALL events (FIXED)
-  const images =
-    events?.flatMap((event) =>
-      event.gallery_images?.map((img: string) => ({
-        src: img,
-        alt: "Wedding moment",
-        span: "",
-      })) || []
-    ) || [];
+  // ✅ Get images from invitation, otherwise fallback to defaults
+  const dbImages = invitation?.gallery_images?.map((img: string) => ({
+    src: img,
+    alt: "Wedding moment",
+  })) || [];
+
+  const images = dbImages.length > 0 ? dbImages : DEFAULT_IMAGES;
 
   return (
     <section id="gallery" className="bg-foreground py-24">

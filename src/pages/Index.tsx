@@ -76,7 +76,7 @@ const Index = () => {
         <EventsSection events={events} />
 
         {/* ✅ FIXED: now events is defined */}
-        <GallerySection events={events} />
+        <GallerySection invitation={events[0] || null} />
 
         <FamilySection />
         <RSVPSection />
