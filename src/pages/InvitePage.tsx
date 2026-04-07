@@ -59,7 +59,8 @@ const InvitePage = () => {
       const { data: eventsData, error: eventsError } = await supabase
         .from('events')
         .select('*')
-        .eq('invitation_id', inviteData.id);
+        .eq('invitation_id', inviteData.id)
+        .order('order_index', { ascending: true });
 
       if (eventsError) {
         console.error('Error fetching events:', eventsError);
