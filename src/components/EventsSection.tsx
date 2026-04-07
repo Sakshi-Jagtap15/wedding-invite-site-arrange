@@ -9,6 +9,7 @@ interface EventType {
   date: string;
   time: string;
   location: string;
+  address?: string;
   description?: string;
   gallery_images?: string[];
 }
@@ -45,6 +46,7 @@ const EventsSection = ({ events }: { events: EventType[] }) => {
     date: event.date,
     time: event.time,
     venue: event.location,
+    address: event.address,
     image: getEventImage(event.title), // ✅ FIXED
     align: index % 2 === 0 ? 'left' : 'right',
     accent: 'hsl(var(--gold))',
@@ -155,7 +157,11 @@ const EventsSection = ({ events }: { events: EventType[] }) => {
               {/* Location */}
               <div className={event.align === 'right' ? 'text-right' : ''}>
                 <a
-                  href={`https://maps.google.com/?q=${encodeURIComponent(event.venue)}`}
+                  href={
+                    event.address?.startsWith('http') 
+                      ? event.address 
+                      : `https://maps.google.com/?q=${encodeURIComponent(event.address || event.venue)}`
+                  }
                   target="_blank"
                   rel="noopener noreferrer"
                   className="uppercase text-xs tracking-[0.25em]"
