@@ -1,22 +1,33 @@
 import { useState } from 'react';
 
+// ✅ Default images (your template)
+import gallery1 from '@/assets/gallery-1.jpg';
+import gallery2 from '@/assets/gallery-2.jpg';
+import gallery3 from '@/assets/gallery-3.jpg';
+
 type EventType = {
   gallery_images?: string[];
 };
-const GallerySection = ({ events }: { events: EventType[] }) => {
-  console.log("Gallery Events:", events);
 
+const GallerySection = ({ events }: { events: EventType[] }) => {
   const [lightbox, setLightbox] = useState<string | null>(null);
 
-  // ✅ Get ALL images from ALL events (FIXED)
+  // ✅ Default template images
+  const defaultImages = [
+    { src: gallery1, alt: 'Default 1', span: '' },
+    { src: gallery2, alt: 'Default 2', span: '' },
+    { src: gallery3, alt: 'Default 3', span: '' },
+  ];
+
+  // ✅ Smart fallback logic
   const images =
-    events?.flatMap((event) =>
-      event.gallery_images?.map((img: string) => ({
+    events
+      ?.find((event) => event.gallery_images && event.gallery_images.length > 0)
+      ?.gallery_images?.map((img: string) => ({
         src: img,
-        alt: "Wedding moment",
-        span: "",
-      })) || []
-    ) || [];
+        alt: 'Wedding moment',
+        span: '',
+      })) || defaultImages;
 
   return (
     <section id="gallery" className="bg-foreground py-24">
@@ -38,21 +49,14 @@ const GallerySection = ({ events }: { events: EventType[] }) => {
         </h2>
       </div>
 
-      {/* ❌ Optional: show message if no images */}
-      {images.length === 0 && (
-        <p className="text-center text-ivory/60">
-          No images available
-        </p>
-      )}
-
       {/* Masonry Grid */}
       <div className="max-w-6xl mx-auto px-6">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 auto-rows-[200px] md:auto-rows-[220px]">
-          
+
           {images.map((img, i) => (
             <div
               key={i}
-              className={`group relative overflow-hidden cursor-pointer fade-up`}
+              className="group relative overflow-hidden cursor-pointer fade-up"
               style={{ transitionDelay: `${i * 0.08}s` }}
               onClick={() => setLightbox(img.src)}
             >
@@ -62,9 +66,8 @@ const GallerySection = ({ events }: { events: EventType[] }) => {
                 className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
               />
 
-              {/* Hover overlay */}
               <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/30 transition-all duration-500" />
-              
+
               <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                 <div className="w-8 h-8 border border-ivory/70 rounded-full flex items-center justify-center">
                   <span className="text-ivory text-xs">+</span>
@@ -91,7 +94,7 @@ const GallerySection = ({ events }: { events: EventType[] }) => {
 
           <button
             onClick={() => setLightbox(null)}
-            className="absolute top-6 right-6 text-ivory/60 hover:text-ivory text-2xl font-light transition-colors"
+            className="absolute top-6 right-6 text-ivory/60 hover:text-ivory text-2xl"
           >
             ✕
           </button>

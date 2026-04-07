@@ -21,21 +21,20 @@ type EventType = {
   description?: string;
   gallery_images?: string[];
 };
+
 const Index = () => {
-  // ✅ STEP 1: create events state
   const [events, setEvents] = useState<EventType[]>([]);
 
-  // ✅ STEP 2: fetch data from Supabase
   useEffect(() => {
     const fetchEvents = async () => {
       const { data, error } = await supabase
         .from('invitations')
-        .select('*'); // make sure gallery_images is included
+        .select('*');
 
       if (error) {
         console.error('Error fetching events:', error);
       } else {
-        console.log('Fetched Events:', data); // 🔍 debug
+        console.log('Fetched Events:', data);
         setEvents(data || []);
       }
     };
@@ -43,7 +42,6 @@ const Index = () => {
     fetchEvents();
   }, []);
 
-  // ✅ existing animation logic (unchanged)
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -72,10 +70,10 @@ const Index = () => {
         <InvitationSection />
         <CountdownSection />
 
-        {/* ✅ PASS events here if needed */}
+        {/* ✅ SAME as before */}
         <EventsSection events={events} />
 
-        {/* ✅ FIXED: now events is defined */}
+        {/* ✅ SAME as before */}
         <GallerySection events={events} />
 
         <FamilySection />
