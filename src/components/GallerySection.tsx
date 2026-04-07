@@ -1,15 +1,22 @@
 import { useState } from 'react';
 
-const GallerySection = ({ events }: { events: any[] }) => {
+type EventType = {
+  gallery_images?: string[];
+};
+const GallerySection = ({ events }: { events: EventType[] }) => {
+  console.log("Gallery Events:", events);
+
   const [lightbox, setLightbox] = useState<string | null>(null);
 
-  // ✅ Get images from Supabase (gallery_images column)
+  // ✅ Get ALL images from ALL events (FIXED)
   const images =
-    events?.[0]?.gallery_images?.map((img: string) => ({
-      src: img,
-      alt: "Wedding moment",
-      span: "",
-    })) || [];
+    events?.flatMap((event) =>
+      event.gallery_images?.map((img: string) => ({
+        src: img,
+        alt: "Wedding moment",
+        span: "",
+      })) || []
+    ) || [];
 
   return (
     <section id="gallery" className="bg-foreground py-24">
@@ -22,6 +29,7 @@ const GallerySection = ({ events }: { events: any[] }) => {
           </p>
           <div className="gold-divider" />
         </div>
+
         <h2
           className="font-cormorant font-light text-ivory fade-up delay-200"
           style={{ fontSize: 'clamp(2.5rem, 6vw, 4.5rem)' }}
@@ -30,15 +38,21 @@ const GallerySection = ({ events }: { events: any[] }) => {
         </h2>
       </div>
 
+      {/* ❌ Optional: show message if no images */}
+      {images.length === 0 && (
+        <p className="text-center text-ivory/60">
+          No images available
+        </p>
+      )}
+
       {/* Masonry Grid */}
       <div className="max-w-6xl mx-auto px-6">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 auto-rows-[200px] md:auto-rows-[220px]">
           
-          {/* ✅ Dynamic Images */}
           {images.map((img, i) => (
             <div
               key={i}
-              className={`group relative overflow-hidden cursor-pointer fade-up ${img.span}`}
+              className={`group relative overflow-hidden cursor-pointer fade-up`}
               style={{ transitionDelay: `${i * 0.08}s` }}
               onClick={() => setLightbox(img.src)}
             >
