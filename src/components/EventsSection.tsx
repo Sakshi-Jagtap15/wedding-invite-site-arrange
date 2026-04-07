@@ -16,7 +16,39 @@ interface EventType {
 const EventsSection = ({ events }: { events: EventType[] }) => {
 
   console.log(events);
-  // ✅ FIX: define function BEFORE using it
+
+  // ✅ DEFAULT TEMPLATE EVENTS (fallback)
+  const defaultEvents: EventType[] = [
+    {
+      id: "1",
+      title: "Haldi Ceremony",
+      date: "10 Dec 2026",
+      time: "10:00 AM",
+      location: "Bride's Home",
+      description: "A joyful celebration filled with colors and love.",
+    },
+    {
+      id: "2",
+      title: "Saptapadi",
+      date: "12 Dec 2026",
+      time: "7:00 PM",
+      location: "Wedding Venue",
+      description: "The sacred vows around the holy fire.",
+    },
+    {
+      id: "3",
+      title: "Reception",
+      date: "13 Dec 2026",
+      time: "8:00 PM",
+      location: "Grand Hall",
+      description: "Celebrate the union with family and friends.",
+    },
+  ];
+
+  // ✅ Decide which data to use
+  const finalEvents = events && events.length > 0 ? events : defaultEvents;
+
+  // ✅ Image logic
   const getEventImage = (title: string) => {
     const name = title.toLowerCase();
 
@@ -33,11 +65,11 @@ const EventsSection = ({ events }: { events: EventType[] }) => {
       name.includes("marriage")
     ) return weddingImg;
 
-    return weddingImg; // fallback
+    return weddingImg;
   };
 
-  // ✅ Map DB data to your luxury UI format
-  const mappedEvents = events.map((event, index) => ({
+  // ✅ Mapping (unchanged UI logic)
+  const mappedEvents = finalEvents.map((event, index) => ({
     id: event.id,
     chapter: index + 1,
     name: event.title,
@@ -45,19 +77,10 @@ const EventsSection = ({ events }: { events: EventType[] }) => {
     date: event.date,
     time: event.time,
     venue: event.location,
-    image: getEventImage(event.title), // ✅ FIXED
+    image: getEventImage(event.title),
     align: index % 2 === 0 ? 'left' : 'right',
     accent: 'hsl(var(--gold))',
   }));
-
-  // ✅ Empty state
-  if (mappedEvents.length === 0) {
-    return (
-      <section className="py-20 text-center">
-        <p className="text-muted-foreground">No events added yet</p>
-      </section>
-    );
-  }
 
   return (
     <section id="events">
