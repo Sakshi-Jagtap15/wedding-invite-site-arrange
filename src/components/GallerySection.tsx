@@ -59,19 +59,19 @@ const GallerySection = ({ invitation }: { invitation?: InvitationData | null }) 
 
       {/* Masonry Grid */}
       <div className="max-w-6xl mx-auto px-6">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 auto-rows-[200px] md:auto-rows-[220px]">
+        <div className="columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
           
           {images.map((img, i) => (
             <div
               key={i}
-              className={`group relative overflow-hidden cursor-pointer fade-up`}
+              className={`group relative overflow-hidden cursor-pointer fade-up break-inside-avoid`}
               style={{ transitionDelay: `${i * 0.08}s` }}
               onClick={() => setLightbox(img.src)}
             >
               <img
                 src={img.src}
                 alt={img.alt}
-                className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                className="w-full h-auto object-cover transition-transform duration-700 ease-out group-hover:scale-110"
               />
 
               {/* Hover overlay */}
