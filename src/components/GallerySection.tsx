@@ -7,6 +7,7 @@ import gallery3 from '@/assets/gallery-3.jpg';
 
 type EventType = {
   gallery_images?: string[];
+  city?: string; // ✅ added for filtering client
 };
 
 const GallerySection = ({ events }: { events: EventType[] }) => {
@@ -19,15 +20,20 @@ const GallerySection = ({ events }: { events: EventType[] }) => {
     { src: gallery3, alt: 'Default 3', span: '' },
   ];
 
-  // ✅ Smart fallback logic
+  // 🔥 Find correct client (CHANGE city as per your client)
+  const clientEvent = events?.find(
+    (event) => event.city === "Handewadi, Pune"
+  );
+
+  // ✅ Final images logic
   const images =
-    events
-      ?.find((event) => event.gallery_images && event.gallery_images.length > 0)
-      ?.gallery_images?.map((img: string) => ({
-        src: img,
-        alt: 'Wedding moment',
-        span: '',
-      })) || defaultImages;
+    clientEvent?.gallery_images?.length
+      ? clientEvent.gallery_images.map((img: string) => ({
+          src: img,
+          alt: 'Wedding moment',
+          span: '',
+        }))
+      : defaultImages;
 
   return (
     <section id="gallery" className="bg-foreground py-24">
