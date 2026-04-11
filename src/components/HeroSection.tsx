@@ -114,32 +114,7 @@ const ConfettiCanvas = ({ active }: { active: boolean }) => {
       style={{ zIndex: 9999 }}
     />
   );
-  useEffect(() => {
-  let autoScrollTimeout: NodeJS.Timeout;
-
-  const startAutoScroll = () => {
-    autoScrollTimeout = setTimeout(() => {
-      window.scrollTo({
-        top: window.innerHeight,
-        behavior: "smooth",
-      });
-    }, 4000); // ⏱️ 4 seconds delay
-  };
-
-  startAutoScroll();
-
-  // ❌ Stop auto scroll if user interacts
-  const stopScroll = () => clearTimeout(autoScrollTimeout);
-
-  window.addEventListener("wheel", stopScroll);
-  window.addEventListener("touchstart", stopScroll);
-
-  return () => {
-    clearTimeout(autoScrollTimeout);
-    window.removeEventListener("wheel", stopScroll);
-    window.removeEventListener("touchstart", stopScroll);
-  };
-}, []);
+  
 };
 
 
@@ -430,10 +405,15 @@ const HeroSection = () => {
     Scroll
   </span>
 
-  <div className="p-2 rounded-full border border-gold/40">
-    <ChevronDown size={18} className="text-gold animate-bounce" />
+    {/* 🔥 Bigger Icon + Glow */}
+    <div className="p-3 rounded-full border border-gold/50">
+      <ChevronDown
+        size={22}
+        className="text-gold animate-bounce drop-shadow-[0_0_8px_rgba(212,175,55,0.8)]"
+      />
+    </div>
+
   </div>
-</div>
       </div>
     </section>
   );
