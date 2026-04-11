@@ -160,8 +160,8 @@ const ScratchDate = ({
       ctx.stroke();
     }
 
-    ctx.fillStyle = 'rgba(100, 65, 5, 0.65)';
-    ctx.font = 'bold 16px Lato, sans-serif';
+    ctx.fillStyle = 'hsla(38, 91%, 21%, 0.65)';
+    ctx.font = 'bold 15px Lato, sans-serif';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     ctx.fillText('✦  SCRATCH TO REVEAL  ✦', canvas.width / 2, canvas.height / 2);
