@@ -219,7 +219,7 @@ const ScratchDate = ({
   <p
     className="font-cormorant font-medium italic text-gold-light tracking-[0.12em] text-2xl sm:text-3xl md:text-4xl"
     style={{
-      fontSize: 'clamp(6rem, 8vw, 4.2rem)',
+      fontSize: 'clamp(8rem, 5vw, 3.2rem)',
       textShadow: '0 2px 10px rgba(0,0,0,0.3)'
     }}
   >
@@ -247,7 +247,7 @@ const ScratchDate = ({
       {!scratching && !revealed && visible && (
         <span
           className="absolute -top-6 sm:-top-5 left-1/2 -translate-x-1/2 text-gold/70 animate-bounce pointer-events-none font-lato"
-          style={{ fontSize: '11px', letterSpacing: '0.15em', whiteSpace: 'nowrap' }}
+          style={{ fontSize: '16px', letterSpacing: '0.15em', whiteSpace: 'nowrap' }}
         >
           ✦ scratch me ✦
         </span>
