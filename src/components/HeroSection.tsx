@@ -219,7 +219,7 @@ const ScratchDate = ({
   <p
     className="font-cormorant font-medium italic text-gold-light tracking-[0.12em] text-2xl sm:text-3xl md:text-4xl"
     style={{
-      fontSize: 'clamp(2rem, 5vw, 3.2rem)',
+      fontSize: 'clamp(6rem, 8vw, 4.2rem)',
       textShadow: '0 2px 10px rgba(0,0,0,0.3)'
     }}
   >
@@ -408,8 +408,8 @@ const HeroSection = () => {
     {/* 🔥 Bigger Icon + Glow */}
     <div className="p-3 rounded-full border border-gold/50">
       <ChevronDown
-        size={22}
-        className="text-gold animate-bounce drop-shadow-[0_0_8px_rgba(212,175,55,0.8)]"
+        size={28}
+        className="text-gold animate-bounce drop-shadow-[0_0_10px_rgba(212,175,55,0.8)]"
       />
     </div>
 
