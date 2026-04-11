@@ -212,7 +212,7 @@ const ScratchDate = ({
     <div
       className="relative inline-block select-none w-[90vw] max-w-[420px] h-[90px] sm:h-[110px]"
       style={{ cursor: revealed ? 'default' : 'crosshair' }}
-    >
+    > 
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
   <p
     className="font-cormorant font-medium italic text-gold-light tracking-[0.12em] text-2xl sm:text-3xl md:text-4xl"
@@ -245,7 +245,7 @@ const ScratchDate = ({
       {!scratching && !revealed && visible && (
         <span
           className="absolute -top-6 sm:-top-5 left-1/2 -translate-x-1/2 text-gold/70 animate-bounce pointer-events-none font-lato"
-          style={{ fontSize: '9px', letterSpacing: '0.15em', whiteSpace: 'nowrap' }}
+          style={{ fontSize: '11px', letterSpacing: '0.15em', whiteSpace: 'nowrap' }}
         >
           ✦ scratch me ✦
         </span>
@@ -321,13 +321,16 @@ const HeroSection = () => {
         />
 
         <h1
-          className={`font-cormorant font-light tracking-[0.06em] sm:tracking-[0.12em] text-ivory leading-none text-5xl sm:text-6xl md:text-7xl lg:text-8xl transition-all duration-1000 ease-out ${
-            loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-          }`}
-          style={{ transitionDelay: '0.3s' }}
-        >
-          {brideName}
-        </h1>
+  className={`font-cormorant font-light tracking-[0.06em] sm:tracking-[0.12em] text-ivory leading-none transition-all duration-1000 ease-out ${
+    loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+  }`}
+  style={{ 
+    transitionDelay: '0.3s',
+    fontSize: "clamp(3.5rem, 9vw, 6rem)"
+  }}
+>
+  {brideName}
+</h1>
 
         <div
           className={`font-cormorant italic text-gold-light my-1 text-4xl sm:text-5xl md:text-6xl transition-all duration-1000 ease-out ${
@@ -339,13 +342,16 @@ const HeroSection = () => {
         </div>
 
         <h1
-          className={`font-cormorant font-light tracking-[0.06em] sm:tracking-[0.12em] text-ivory leading-none text-5xl sm:text-6xl md:text-7xl lg:text-8xl transition-all duration-1000 ease-out ${
-            loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-          }`}
-          style={{ transitionDelay: '1.1s' }}
-        >
-          {groomName}
-        </h1>
+  className={`font-cormorant font-light tracking-[0.06em] sm:tracking-[0.12em] text-ivory leading-none transition-all duration-1000 ease-out ${
+    loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+  }`}
+  style={{ 
+    transitionDelay: '0.3s',
+    fontSize: "clamp(3.5rem, 9vw, 6rem)"
+  }}
+>
+  {groomName}
+</h1>
 
         <div
           className={`mx-auto my-6 gold-divider transition-all duration-1000 ${
@@ -392,8 +398,15 @@ const HeroSection = () => {
         }`}
         style={{ transitionDelay: '2.5s' }}
       >
-        <span className="font-lato text-ivory/40 text-xs tracking-[0.2em] uppercase">Scroll</span>
-        <ChevronDown size={16} className="text-gold scroll-bounce" />
+        <div className="flex flex-col items-center gap-1 animate-pulse">
+  <span className="font-lato text-gold text-xs tracking-[0.3em] uppercase">
+    Scroll
+  </span>
+
+  <div className="p-2 rounded-full border border-gold/40">
+    <ChevronDown size={18} className="text-gold animate-bounce" />
+  </div>
+</div>
       </div>
     </section>
   );
