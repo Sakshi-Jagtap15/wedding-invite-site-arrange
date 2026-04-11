@@ -219,7 +219,7 @@ const ScratchDate = ({
   <p
     className="font-cormorant font-medium italic text-gold-light tracking-[0.12em] text-2xl sm:text-3xl md:text-4xl"
     style={{
-      fontSize: 'clamp(6rem, 3vw, 3.2rem)',
+      fontSize: 'clamp(3rem, 3vw, 3.2rem)',
       textShadow: '0 2px 10px rgba(0,0,0,0.3)'
     }}
   >
