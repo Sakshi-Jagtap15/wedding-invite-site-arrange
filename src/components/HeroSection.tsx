@@ -161,7 +161,7 @@ const ScratchDate = ({
     }
 
     ctx.fillStyle = 'hsla(38, 91%, 21%, 0.65)';
-    ctx.font = 'bold 15px Lato, sans-serif';
+    ctx.font = 'bold 20px Lato, sans-serif';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     ctx.fillText('✦  SCRATCH TO REVEAL  ✦', canvas.width / 2, canvas.height / 2);
@@ -219,7 +219,7 @@ const ScratchDate = ({
   <p
     className="font-cormorant font-medium italic text-gold-light tracking-[0.12em] text-2xl sm:text-3xl md:text-4xl"
     style={{
-      fontSize: 'clamp(8rem, 5vw, 3.2rem)',
+      fontSize: 'clamp(6rem, 3vw, 3.2rem)',
       textShadow: '0 2px 10px rgba(0,0,0,0.3)'
     }}
   >
