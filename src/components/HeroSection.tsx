@@ -161,7 +161,7 @@ const ScratchDate = ({
     }
 
     ctx.fillStyle = 'rgba(100, 65, 5, 0.65)';
-    ctx.font = 'bold 11px Lato, sans-serif';
+    ctx.font = 'bold 16px Lato, sans-serif';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     ctx.fillText('✦  SCRATCH TO REVEAL  ✦', canvas.width / 2, canvas.height / 2);
@@ -247,7 +247,7 @@ const ScratchDate = ({
       {!scratching && !revealed && visible && (
         <span
           className="absolute -top-6 sm:-top-5 left-1/2 -translate-x-1/2 text-gold/70 animate-bounce pointer-events-none font-lato"
-          style={{ fontSize: '16px', letterSpacing: '0.15em', whiteSpace: 'nowrap' }}
+          style={{ fontSize: '11px', letterSpacing: '0.15em', whiteSpace: 'nowrap' }}
         >
           ✦ scratch me ✦
         </span>
