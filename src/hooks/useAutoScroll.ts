@@ -16,7 +16,7 @@ import { useEffect, useRef } from 'react';
  * @param resumeDelay  ms before resuming after user interaction (default 3000)
  * @param startDelay   ms before autoscroll begins at all (default 1000)
  */
-export function useAutoScroll(speed = 0.6, resumeDelay = 3000, startDelay = 1000) {
+export function useAutoScroll(speed = 0.8, resumeDelay = 3000, startDelay = 1000) {
   const isPaused    = useRef(true); // starts paused; released after startDelay
   const rafId       = useRef<number | null>(null);
   const resumeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
