@@ -2,25 +2,31 @@ import { useEffect, useRef } from 'react';
 
 /**
  * useAutoScroll
+ * ─────────────────────────────────────────────────────────────────────────────
  * Slowly auto-scrolls the page downward.
- * Pauses on any user interaction (wheel, touch, click, keydown).
- * Resumes after `resumeDelay` ms of inactivity.
- * Stops permanently at the bottom of the page.
- * Respects prefers-reduced-motion.
  *
- * @param speed        Pixels per animation frame  (default 0.6)
+ * Fixes vs previous version:
+ *  1. `mousedown` removed from global pause triggers — it was firing on page
+ *     load in some browsers and immediately pausing autoscroll.
+ *  2. Pause-zone query is deferred (rAF after mount) so DOM is fully painted
+ *     before we look for [data-autoscroll-pause] elements.
+ *  3. Added `startDelay` (default 1 s) so hero animations finish first.
+ * ─────────────────────────────────────────────────────────────────────────────
+ * @param speed        px per animation frame   (default 0.6)
  * @param resumeDelay  ms before resuming after user interaction (default 3000)
+ * @param startDelay   ms before autoscroll begins at all (default 1000)
  */
-export function useAutoScroll(speed = 0.6, resumeDelay = 3000) {
-  const isPaused      = useRef(false);
-  const rafId         = useRef<number | null>(null);
-  const resumeTimer   = useRef<ReturnType<typeof setTimeout> | null>(null);
+export function useAutoScroll(speed = 0.6, resumeDelay = 3000, startDelay = 1000) {
+  const isPaused    = useRef(true); // starts paused; released after startDelay
+  const rafId       = useRef<number | null>(null);
+  const resumeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const startTimer  = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
-    // ── Respect reduced-motion preference ──
+    // Respect reduced-motion accessibility preference
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-    // ── Helpers ──
+    // ── Helpers ────────────────────────────────────────────────────────────
     const clearResume = () => {
       if (resumeTimer.current) clearTimeout(resumeTimer.current);
     };
@@ -32,80 +38,74 @@ export function useAutoScroll(speed = 0.6, resumeDelay = 3000) {
       }, resumeDelay);
     };
 
-    const pause = () => {
+    const pauseTemporarily = () => {
       isPaused.current = true;
       scheduleResume();
     };
 
-    // Pause permanently while inside an [data-autoscroll-pause] zone,
-    // resume only when the mouse/touch leaves.
-    const pausePermanent = () => {
-      isPaused.current = true;
-      clearResume(); // do NOT schedule resume here — leave handles that
-    };
-
-    // ── Animation loop ──
+    // ── Animation loop ─────────────────────────────────────────────────────
     const tick = () => {
       if (!isPaused.current) {
         const maxScroll = document.body.scrollHeight - window.innerHeight;
         if (window.scrollY >= maxScroll - 2) {
-          // Bottom reached — stop forever
-          return;
+          return; // reached bottom — stop forever
         }
         window.scrollBy(0, speed);
       }
       rafId.current = requestAnimationFrame(tick);
     };
 
-    // ── Global interaction listeners (pause + schedule resume) ──
-    window.addEventListener('wheel',      pause, { passive: true });
-    window.addEventListener('touchstart', pause, { passive: true });
-    window.addEventListener('touchmove',  pause, { passive: true });
-    window.addEventListener('mousedown',  pause);
-    window.addEventListener('keydown',    pause);
+    // ── Global interaction listeners ───────────────────────────────────────
+    // NOTE: mousedown intentionally excluded — it caused false pauses on load
+    window.addEventListener('wheel',      pauseTemporarily, { passive: true });
+    window.addEventListener('touchstart', pauseTemporarily, { passive: true });
+    window.addEventListener('touchmove',  pauseTemporarily, { passive: true });
+    window.addEventListener('keydown',    pauseTemporarily);
 
-    // ── Pause-zone elements ([data-autoscroll-pause]) ──
-    // These elements pause autoscroll while hovered/touched and only resume
-    // once the user leaves — protecting scratch card, RSVP, gallery, etc.
-    const pauseZones = document.querySelectorAll<HTMLElement>('[data-autoscroll-pause]');
+    // ── Pause-zone setup (deferred one frame so DOM elements exist) ─────────
+    let pauseZones: HTMLElement[] = [];
 
-    const handleZoneEnter = () => {
-      isPaused.current = true;
-      clearResume();
-    };
-    const handleZoneLeave = () => {
-      scheduleResume();
-    };
-    const handleZoneTouch = () => {
-      isPaused.current = true;
-      clearResume();
-    };
+    const handleZoneEnter    = () => { isPaused.current = true; clearResume(); };
+    const handleZoneLeave    = () => { scheduleResume(); };
+    const handleZoneTouch    = () => { isPaused.current = true; clearResume(); };
+    const handleZoneTouchEnd = () => { scheduleResume(); };
 
-    pauseZones.forEach((el) => {
-      el.addEventListener('mouseenter', handleZoneEnter);
-      el.addEventListener('mouseleave', handleZoneLeave);
-      el.addEventListener('touchstart', handleZoneTouch, { passive: true });
+    const zoneRaf = requestAnimationFrame(() => {
+      pauseZones = Array.from(
+        document.querySelectorAll<HTMLElement>('[data-autoscroll-pause]')
+      );
+      pauseZones.forEach((el) => {
+        el.addEventListener('mouseenter', handleZoneEnter);
+        el.addEventListener('mouseleave', handleZoneLeave);
+        el.addEventListener('touchstart', handleZoneTouch,    { passive: true });
+        el.addEventListener('touchend',   handleZoneTouchEnd, { passive: true });
+      });
     });
 
-    // ── Start ──
-    rafId.current = requestAnimationFrame(tick);
+    // ── Start after initial delay ──────────────────────────────────────────
+    startTimer.current = setTimeout(() => {
+      isPaused.current = false;
+      rafId.current = requestAnimationFrame(tick);
+    }, startDelay);
 
-    // ── Cleanup ──
+    // ── Cleanup ────────────────────────────────────────────────────────────
     return () => {
-      if (rafId.current)   cancelAnimationFrame(rafId.current);
+      cancelAnimationFrame(zoneRaf);
+      if (rafId.current)       cancelAnimationFrame(rafId.current);
       if (resumeTimer.current) clearTimeout(resumeTimer.current);
+      if (startTimer.current)  clearTimeout(startTimer.current);
 
-      window.removeEventListener('wheel',      pause);
-      window.removeEventListener('touchstart', pause);
-      window.removeEventListener('touchmove',  pause);
-      window.removeEventListener('mousedown',  pause);
-      window.removeEventListener('keydown',    pause);
+      window.removeEventListener('wheel',      pauseTemporarily);
+      window.removeEventListener('touchstart', pauseTemporarily);
+      window.removeEventListener('touchmove',  pauseTemporarily);
+      window.removeEventListener('keydown',    pauseTemporarily);
 
       pauseZones.forEach((el) => {
         el.removeEventListener('mouseenter', handleZoneEnter);
         el.removeEventListener('mouseleave', handleZoneLeave);
         el.removeEventListener('touchstart', handleZoneTouch);
+        el.removeEventListener('touchend',   handleZoneTouchEnd);
       });
     };
-  }, [speed, resumeDelay]);
+  }, [speed, resumeDelay, startDelay]);
 }

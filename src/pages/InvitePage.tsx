@@ -12,7 +12,7 @@ import GallerySection from '@/components/GallerySection';
 import FamilySection from '@/components/FamilySection';
 import RSVPSection from '@/components/RSVPSection';
 import WeddingFooter from '@/components/WeddingFooter';
-
+import { useAutoScroll } from '@/hooks/useAutoScroll';
 
 // ✅ Event Type
 interface EventType {
@@ -31,6 +31,10 @@ const InvitePage = () => {
   const [events, setEvents] = useState<EventType[]>([]);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
+
+  // ── Autoscroll (only active after data loads, not on loading/404 screens) ──
+  // startDelay of 1500ms lets the hero entrance animation finish first.
+  useAutoScroll(0.6, 3000, 1500);
 
   useEffect(() => {
     const fetchInvitation = async () => {

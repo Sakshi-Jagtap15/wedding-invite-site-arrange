@@ -12,16 +12,50 @@ const Navigation = () => {
   const groomName = invitation?.groom_name ?? 'Arjun';
   const initials = `${brideName.charAt(0)} & ${groomName.charAt(0)}`;
 
+  // ── Audio setup & autoplay ──────────────────────────────────────────────────
+  // Strategy:
+  //   1. Create audio and attempt autoplay immediately.
+  //   2. If the browser blocks autoplay (autoplay policy), register a ONE-TIME
+  //      click listener as a fallback — music starts on the first user click.
+  //   3. Once playing, the click fallback is removed so it doesn't interfere.
+  // ─────────────────────────────────────────────────────────────────────────────
   useEffect(() => {
     const audio = new Audio('/music/Aaj Se Teri.mp3');
-    audio.loop = true;
+    audio.loop   = true;
     audio.volume = 0.20;
+    audio.muted  = false;
     audioRef.current = audio;
-    audio.muted = false;
-    audio.play().catch(() => {});
-    return () => { audio.pause(); audio.src = ''; };
+
+    // Attempt autoplay right away
+    const playPromise = audio.play();
+
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        // Browser blocked autoplay — wait for first user interaction
+        const startOnInteraction = () => {
+          const a = audioRef.current;
+          if (!a) return;
+          a.muted = false;
+          a.play().catch(() => {});
+          setMusicOn(true);
+          document.removeEventListener('click',     startOnInteraction);
+          document.removeEventListener('touchstart', startOnInteraction);
+          document.removeEventListener('keydown',    startOnInteraction);
+        };
+
+        document.addEventListener('click',      startOnInteraction, { once: true });
+        document.addEventListener('touchstart', startOnInteraction, { once: true, passive: true });
+        document.addEventListener('keydown',    startOnInteraction, { once: true });
+      });
+    }
+
+    return () => {
+      audio.pause();
+      audio.src = '';
+    };
   }, []);
 
+  // ── Toggle music on / off ──────────────────────────────────────────────────
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
@@ -36,33 +70,17 @@ const Navigation = () => {
     }
   }, [musicOn]);
 
+  // ── Scroll detection ───────────────────────────────────────────────────────
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 80);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  useEffect(() => {
-  const startMusic = () => {
-    const audio = audioRef.current;
-    if (!audio) return;
-
-    audio.muted = false;
-    audio.play().catch(() => {});
-    setMusicOn(true);
-
-    document.removeEventListener("click", startMusic);
-  };
-
-  document.addEventListener("click", startMusic);
-
-  return () => document.removeEventListener("click", startMusic);
-}, []);
-
   const navLinks = [
-    { label: 'Events', href: '#events' },
+    { label: 'Events',  href: '#events'  },
     { label: 'Gallery', href: '#gallery' },
-    { label: 'RSVP', href: '#rsvp' },
+    { label: 'RSVP',    href: '#rsvp'   },
   ];
 
   return (
@@ -132,11 +150,12 @@ function fadeVolume(
   durationMs: number,
   onDone?: () => void
 ) {
-  const steps = 30;
+  const steps    = 30;
   const interval = durationMs / steps;
-  const delta = (to - from) / steps;
-  let step = 0;
-  audio.volume = Math.max(0, Math.min(1, from));
+  const delta    = (to - from) / steps;
+  let step       = 0;
+  audio.volume   = Math.max(0, Math.min(1, from));
+
   const timer = setInterval(() => {
     step++;
     const next = from + delta * step;
