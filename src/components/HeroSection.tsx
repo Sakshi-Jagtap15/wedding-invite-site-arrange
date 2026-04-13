@@ -161,7 +161,7 @@ const ScratchDate = ({
     }
 
     ctx.fillStyle = 'hsla(38, 91%, 21%, 0.65)';
-    ctx.font = 'bold 20px Lato, sans-serif';
+    ctx.font = 'bold 22px Lato, sans-serif';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     ctx.fillText('✦  SCRATCH TO REVEAL  ✦', canvas.width / 2, canvas.height / 2);
@@ -244,23 +244,6 @@ const ScratchDate = ({
         />
       )}
 
-      {!scratching && !revealed && visible && (
-        <span
-          className="absolute -top-6 sm:-top-5 left-1/2 -translate-x-1/2 text-gold/70 animate-bounce pointer-events-none font-lato"
-          style={{ fontSize: '11px', letterSpacing: '0.15em', whiteSpace: 'nowrap' }}
-        >
-          ✦ scratch me ✦
-        </span>
-      )}
-
-      {revealed && (
-        <span
-          className="absolute -top-6 left-1/2 -translate-x-1/2 text-gold pointer-events-none font-lato animate-bounce"
-          style={{ fontSize: '10px', letterSpacing: '0.2em', whiteSpace: 'nowrap' }}
-        >
-          ✦ see you there ✦
-        </span>
-      )}
     </div>
   );
 };
