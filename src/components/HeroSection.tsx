@@ -212,7 +212,7 @@ const ScratchDate = ({
 
   return (
     <div
-      className="relative inline-block select-none w-[90vw] max-w-[420px] h-[90px] sm:h-[110px]"
+      data-autoscroll-pause className="relative inline-block select-none w-[90vw] max-w-[420px] h-[90px] sm:h-[110px]"
       style={{ cursor: revealed ? 'default' : 'crosshair' }}
     > 
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
@@ -392,7 +392,7 @@ const HeroSection = () => {
     <div className="p-3 rounded-full border border-gold/50">
       <ChevronDown
         size={28}
-        className="text-gold animate-bounce drop-shadow-[0_0_10px_rgba(212,175,55,0.8)]"
+        className="text-gold animate-bounce drop-shadow-[0_0_10px_rgba(228,175,55,0.8)]"
       />
     </div>
 

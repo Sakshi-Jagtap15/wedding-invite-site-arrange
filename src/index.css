@@ -280,3 +280,11 @@ html, body {
   max-width: 100%;
   overflow-x: hidden;
 }
+
+/* Autoscroll pause zones — interactions inside these stop scroll temporarily */
+.scratch-card,
+[data-autoscroll-pause],
+canvas {
+  /* These are handled via JS events already, but this documents intent */
+  touch-action: none; /* prevents scroll-through on touch devices during scratch */
+}

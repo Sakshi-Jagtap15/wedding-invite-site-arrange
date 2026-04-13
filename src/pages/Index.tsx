@@ -11,6 +11,7 @@ import GallerySection from '@/components/GallerySection';
 import FamilySection from '@/components/FamilySection';
 import RSVPSection from '@/components/RSVPSection';
 import WeddingFooter from '@/components/WeddingFooter';
+import { useAutoScroll } from '@/hooks/useAutoScroll';
 
 type EventType = {
   id: string;
@@ -21,8 +22,9 @@ type EventType = {
   description?: string;
   gallery_images?: string[];
 };
-const Index = () => {
-  // ✅ STEP 1: create events state
+const Index = () => {  // ✅ STEP 1: create events state
+  useAutoScroll(0.6, 3000); 
+  
   const [events, setEvents] = useState<EventType[]>([]);
 
   // ✅ STEP 2: fetch data from Supabase
@@ -42,6 +44,8 @@ const Index = () => {
 
     fetchEvents();
   }, []);
+
+  
 
   // ✅ existing animation logic (unchanged)
   useEffect(() => {
