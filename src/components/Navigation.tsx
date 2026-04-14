@@ -35,7 +35,7 @@ const TapToEnter = ({ onEnter }: { onEnter: () => void }) => (
     <p
       className="font-lato font-light text-ivory/50 tracking-[0.25em] uppercase text-xs mb-10 text-center px-6"
     >
-      With music &amp; animation
+      Sourabh &amp; Shweta
     </p>
 
     {/* Pulsing ring button */}
@@ -188,10 +188,10 @@ const Navigation = () => {
           >
             <span
               className={`relative flex items-center justify-center w-6 h-6 rounded-full border transition-all duration-300 ${musicOn
-                  ? 'border-gold bg-gold/10 text-gold'
-                  : scrolled
-                    ? 'border-ivory/30 text-gold/70'
-                    : 'border-ivory/30 text-ivory/60'
+                ? 'border-gold bg-gold/10 text-gold'
+                : scrolled
+                  ? 'border-ivory/30 text-gold/70'
+                  : 'border-ivory/30 text-ivory/60'
                 }`}
             >
               {musicOn ? <Music size={11} /> : <VolumeX size={11} />}
