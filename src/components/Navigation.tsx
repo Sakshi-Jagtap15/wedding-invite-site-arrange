@@ -5,7 +5,7 @@ import { useInvitation } from '@/contexts/InvitationContext';
 // ─────────────────────────────────────────────────────────────────────────────
 // Utility: smooth scroll with controllable speed
 // ─────────────────────────────────────────────────────────────────────────────
-function scrollToSection(href: string, durationMs = 4000) {
+function scrollToSection(href: string, durationMs = 5000) {
   const target = document.querySelector(href);
   if (!target) return;
 
