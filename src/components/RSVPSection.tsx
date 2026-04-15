@@ -160,7 +160,7 @@ const RSVPSection = () => {
             </h3>
             <div className="gold-divider mx-auto my-6" />
             <p className="font-cormorant italic text-foreground/70 text-xl leading-relaxed">
-              "We can't wait to celebrate with you."
+              "We will await for your presence to celebrate with you and your family."
             </p>
             <p className="font-lato font-light text-muted-foreground text-sm mt-4 tracking-wider">
               — {brideName} & {groomName}
