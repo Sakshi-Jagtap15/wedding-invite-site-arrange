@@ -5,7 +5,7 @@ import { useInvitation } from '@/contexts/InvitationContext';
 // ─────────────────────────────────────────────────────────────────────────────
 // Utility: smooth scroll with controllable speed
 // ─────────────────────────────────────────────────────────────────────────────
-function scrollToSection(href: string, durationMs = 5000) {
+function scrollToSection(href: string, durationMs = 4800) {
   const target = document.querySelector(href);
   if (!target) return;
 
@@ -161,18 +161,16 @@ const Navigation = () => {
       {showSplash && <TapToEnter onEnter={handleEnter} />}
 
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ease-in-out ${
-          scrolled ? 'py-3 bg-foreground/90 backdrop-blur-md shadow-md' : 'py-5 bg-transparent'
-        }`}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ease-in-out ${scrolled ? 'py-3 bg-foreground/90 backdrop-blur-md shadow-md' : 'py-5 bg-transparent'
+          }`}
       >
         <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">
 
           <a
             href="#hero"
             onClick={(e) => { e.preventDefault(); scrollToSection('#hero', 1000); }}
-            className={`font-cormorant text-xl tracking-[0.2em] transition-colors duration-500 ${
-              scrolled ? 'text-gold' : 'text-ivory'
-            }`}
+            className={`font-cormorant text-xl tracking-[0.2em] transition-colors duration-500 ${scrolled ? 'text-gold' : 'text-ivory'
+              }`}
           >
             {initials}
           </a>
@@ -183,9 +181,8 @@ const Navigation = () => {
                 key={link.href}
                 href={link.href}
                 onClick={(e) => { e.preventDefault(); scrollToSection(link.href, 1000); }}
-                className={`font-lato text-xs tracking-[0.15em] uppercase transition-colors duration-300 hover:text-gold ${
-                  scrolled ? 'text-ivory/80' : 'text-ivory/80'
-                }`}
+                className={`font-lato text-xs tracking-[0.15em] uppercase transition-colors duration-300 hover:text-gold ${scrolled ? 'text-ivory/80' : 'text-ivory/80'
+                  }`}
               >
                 {link.label}
               </a>
@@ -194,19 +191,17 @@ const Navigation = () => {
 
           <button
             onClick={() => setMusicOn((prev) => !prev)}
-            className={`flex items-center gap-2 font-lato text-xs tracking-widest uppercase transition-all duration-300 group ${
-              scrolled ? 'text-gold hover:text-gold-light' : 'text-ivory/70 hover:text-ivory'
-            }`}
+            className={`flex items-center gap-2 font-lato text-xs tracking-widest uppercase transition-all duration-300 group ${scrolled ? 'text-gold hover:text-gold-light' : 'text-ivory/70 hover:text-ivory'
+              }`}
             title={musicOn ? 'Mute Music' : 'Play Music'}
           >
             <span
-              className={`relative flex items-center justify-center w-6 h-6 rounded-full border transition-all duration-300 ${
-                musicOn
+              className={`relative flex items-center justify-center w-6 h-6 rounded-full border transition-all duration-300 ${musicOn
                   ? 'border-gold bg-gold/10 text-gold'
                   : scrolled
                     ? 'border-ivory/30 text-gold/70'
                     : 'border-ivory/30 text-ivory/60'
-              }`}
+                }`}
             >
               {musicOn ? <Music size={11} /> : <VolumeX size={11} />}
               {musicOn && (
