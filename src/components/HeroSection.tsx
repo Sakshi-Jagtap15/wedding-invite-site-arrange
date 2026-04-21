@@ -254,7 +254,6 @@ const HeroSection = () => {
   const [loaded, setLoaded] = useState(false);
   const [showScratch, setShowScratch] = useState(false);
   const [confetti, setConfetti] = useState(false);
-  const [isVerticalImg, setIsVerticalImg] = useState(false);
 
   const brideName = invitation?.bride_name ?? 'Aanya';
   const groomName = invitation?.groom_name ?? 'Arjun';
@@ -292,17 +291,7 @@ const HeroSection = () => {
       <img
         src={heroImage}
         alt="Wedding Background"
-        onLoad={(e) => {
-          const img = e.currentTarget;
-          if (img.naturalHeight > img.naturalWidth) {
-            setIsVerticalImg(true);
-          } else {
-            setIsVerticalImg(false);
-          }
-        }}
-        className={`absolute inset-0 w-full h-full object-center ${
-          isVerticalImg ? 'object-contain md:object-cover' : 'object-cover'
-        }`}
+        className="absolute inset-0 w-full h-full object-cover object-center"
       />
 
       <ConfettiCanvas active={confetti} />
