@@ -4,9 +4,9 @@ import { ChevronDown } from 'lucide-react';
 import { useInvitation } from '@/contexts/InvitationContext';
 
 /* ─── Confetti Particle System ─── */
-const GOLD_COLORS  = ['#e8c96a', '#f5dfa0', '#c9a84c', '#f0d080', '#d4a820', '#fce27a'];
-const ROSE_COLORS  = ['#e8a0b0', '#d4687c', '#f0b8c8', '#c96080', '#f5c6d0', '#e07090'];
-const ALL_COLORS   = [...GOLD_COLORS, ...ROSE_COLORS];
+const GOLD_COLORS = ['#e8c96a', '#f5dfa0', '#c9a84c', '#f0d080', '#d4a820', '#fce27a'];
+const ROSE_COLORS = ['#e8a0b0', '#d4687c', '#f0b8c8', '#c96080', '#f5c6d0', '#e07090'];
+const ALL_COLORS = [...GOLD_COLORS, ...ROSE_COLORS];
 
 interface Particle {
   x: number; y: number;
@@ -20,7 +20,7 @@ interface Particle {
 
 const ConfettiCanvas = ({ active }: { active: boolean }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const animRef   = useRef<number>(0);
+  const animRef = useRef<number>(0);
   const particles = useRef<Particle[]>([]);
 
   const spawn = useCallback(() => {
@@ -35,7 +35,7 @@ const ConfettiCanvas = ({ active }: { active: boolean }) => {
       rotation: Math.random() * 360,
       rotationSpeed: (Math.random() - 0.5) * 8,
       color: ALL_COLORS[Math.floor(Math.random() * ALL_COLORS.length)],
-      width:  6 + Math.random() * 10,
+      width: 6 + Math.random() * 10,
       height: 10 + Math.random() * 16,
       opacity: 1,
       fade: 0.004 + Math.random() * 0.006,
@@ -55,12 +55,12 @@ const ConfettiCanvas = ({ active }: { active: boolean }) => {
       if (p.opacity <= 0) continue;
       alive = true;
 
-      p.x        += p.vx;
-      p.y        += p.vy;
-      p.vy       += 0.08;
-      p.vx       += (Math.random() - 0.5) * 0.3;
+      p.x += p.vx;
+      p.y += p.vy;
+      p.vy += 0.08;
+      p.vx += (Math.random() - 0.5) * 0.3;
       p.rotation += p.rotationSpeed;
-      p.opacity  -= p.fade;
+      p.opacity -= p.fade;
 
       ctx.save();
       ctx.globalAlpha = Math.max(0, p.opacity);
@@ -91,7 +91,7 @@ const ConfettiCanvas = ({ active }: { active: boolean }) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const resize = () => {
-      canvas.width  = window.innerWidth;
+      canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     };
     resize();
@@ -114,7 +114,7 @@ const ConfettiCanvas = ({ active }: { active: boolean }) => {
       style={{ zIndex: 9999 }}
     />
   );
-  
+
 };
 
 
@@ -128,10 +128,10 @@ const ScratchDate = ({
   onRevealed: () => void;
   dateLabel: string;
 }) => {
-  const canvasRef  = useRef<HTMLCanvasElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
   const [revealed, setRevealed] = useState(false);
   const [scratching, setScratching] = useState(false);
-  const isDrawing  = useRef(false);
+  const isDrawing = useRef(false);
   const hasRevealedRef = useRef(false);
 
   useEffect(() => {
@@ -142,11 +142,11 @@ const ScratchDate = ({
     if (!ctx) return;
 
     const grad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-    grad.addColorStop(0,   '#e8c96a');
-    grad.addColorStop(0.25,'#fdf0b0');
+    grad.addColorStop(0, '#e8c96a');
+    grad.addColorStop(0.25, '#fdf0b0');
     grad.addColorStop(0.5, '#c9a84c');
-    grad.addColorStop(0.75,'#f0d080');
-    grad.addColorStop(1,   '#a87c2a');
+    grad.addColorStop(0.75, '#f0d080');
+    grad.addColorStop(1, '#a87c2a');
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -171,13 +171,13 @@ const ScratchDate = ({
     e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>
   ) => {
     const canvas = canvasRef.current!;
-    const rect   = canvas.getBoundingClientRect();
-    const scaleX = canvas.width  / rect.width;
+    const rect = canvas.getBoundingClientRect();
+    const scaleX = canvas.width / rect.width;
     const scaleY = canvas.height / rect.height;
     const src = 'touches' in e ? e.touches[0] : e;
     return {
       x: (src.clientX - rect.left) * scaleX,
-      y: (src.clientY - rect.top)  * scaleY,
+      y: (src.clientY - rect.top) * scaleY,
     };
   };
 
@@ -186,7 +186,7 @@ const ScratchDate = ({
   ) => {
     if (!isDrawing.current) return;
     const canvas = canvasRef.current;
-    const ctx    = canvas?.getContext('2d');
+    const ctx = canvas?.getContext('2d');
     if (!canvas || !ctx) return;
 
     const { x, y } = getPos(e);
@@ -214,25 +214,25 @@ const ScratchDate = ({
     <div
       data-autoscroll-pause className="relative inline-block select-none w-[90vw] max-w-[420px] h-[90px] sm:h-[110px]"
       style={{ cursor: revealed ? 'default' : 'crosshair' }}
-    > 
+    >
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-  <p
-    className="font-cormorant font-medium italic text-gold-light tracking-[0.12em] text-2xl sm:text-3xl md:text-4xl"
-    style={{
-      fontSize: 'clamp(3rem, 3vw, 3.2rem)',
-      textShadow: '0 2px 10px rgba(0,0,0,0.3)'
-    }}
-  >
-    {dateLabel}
-  </p>
-</div>
+        <p
+          className="font-cormorant font-medium italic text-gold-light tracking-[0.12em] text-2xl sm:text-3xl md:text-4xl"
+          style={{
+            fontSize: 'clamp(3rem, 3vw, 3.2rem)',
+            textShadow: '0 2px 10px rgba(0,0,0,0.3)'
+          }}
+        >
+          {dateLabel}
+        </p>
+      </div>
 
       {!revealed && visible && (
         <canvas
-           ref={canvasRef}
-           width={600}   // internal resolution (important)
-           height={160}
-           className="absolute inset-0 w-full h-full touch-none"
+          ref={canvasRef}
+          width={600}   // internal resolution (important)
+          height={160}
+          className="absolute inset-0 w-full h-full touch-none"
           style={{ borderRadius: '4px' }}
           onMouseDown={(e) => { isDrawing.current = true; setScratching(true); scratch(e); }}
           onMouseMove={scratch}
@@ -251,9 +251,9 @@ const ScratchDate = ({
 /* ─── Hero Section ─── */
 const HeroSection = () => {
   const invitation = useInvitation();
-  const [loaded,     setLoaded]     = useState(false);
+  const [loaded, setLoaded] = useState(false);
   const [showScratch, setShowScratch] = useState(false);
-  const [confetti,   setConfetti]   = useState(false);
+  const [confetti, setConfetti] = useState(false);
 
   const brideName = invitation?.bride_name ?? 'Aanya';
   const groomName = invitation?.groom_name ?? 'Arjun';
@@ -271,7 +271,7 @@ const HeroSection = () => {
   };
 
   useEffect(() => {
-    const t1 = setTimeout(() => setLoaded(true),     300);
+    const t1 = setTimeout(() => setLoaded(true), 300);
     const t2 = setTimeout(() => setShowScratch(true), 2400);
     return () => { clearTimeout(t1); clearTimeout(t2); };
   }, []);
@@ -299,78 +299,70 @@ const HeroSection = () => {
 
       <div className="relative z-10 text-center px-6">
         <div
-          className={`mx-auto mb-8 transition-all duration-1000 ease-out ${
-            loaded ? 'opacity-100 w-16' : 'opacity-0 w-0'
-          }`}
+          className={`mx-auto mb-8 transition-all duration-1000 ease-out ${loaded ? 'opacity-100 w-16' : 'opacity-0 w-0'
+            }`}
           style={{ height: '1px', background: 'var(--gradient-gold)' }}
         />
 
         <h1
-  className={`font-cormorant font-light tracking-[0.06em] sm:tracking-[0.12em] text-ivory leading-none transition-all duration-1000 ease-out ${
-    loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-  }`}
-  style={{ 
-    transitionDelay: '0.3s',
-    fontSize: "clamp(3.5rem, 9vw, 6rem)"
-  }}
->
-  {brideName}
-</h1>
+          className={`font-cormorant font-light tracking-[0.06em] sm:tracking-[0.12em] text-ivory leading-none transition-all duration-1000 ease-out ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}
+          style={{
+            transitionDelay: '0.3s',
+            fontSize: "clamp(3.5rem, 9vw, 6rem)"
+          }}
+        >
+          {brideName}
+        </h1>
 
         <div
-          className={`font-cormorant italic text-gold-light my-1 text-4xl sm:text-5xl md:text-6xl transition-all duration-1000 ease-out ${
-            loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-          }`}
+          className={`font-cormorant italic text-gold-light my-1 text-4xl sm:text-5xl md:text-6xl transition-all duration-1000 ease-out ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}
           style={{ transitionDelay: '0.7s' }}
         >
           &
         </div>
 
         <h1
-  className={`font-cormorant font-light tracking-[0.06em] sm:tracking-[0.12em] text-ivory leading-none transition-all duration-1000 ease-out ${
-    loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-  }`}
-  style={{ 
-    transitionDelay: '0.3s',
-    fontSize: "clamp(3.5rem, 9vw, 6rem)"
-  }}
->
-  {groomName}
-</h1>
+          className={`font-cormorant font-light tracking-[0.06em] sm:tracking-[0.12em] text-ivory leading-none transition-all duration-1000 ease-out ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}
+          style={{
+            transitionDelay: '0.3s',
+            fontSize: "clamp(3.5rem, 9vw, 6rem)"
+          }}
+        >
+          {groomName}
+        </h1>
 
         <div
-          className={`mx-auto my-6 gold-divider transition-all duration-1000 ${
-            loaded ? 'opacity-100' : 'opacity-0'
-          }`}
+          className={`mx-auto my-6 gold-divider transition-all duration-1000 ${loaded ? 'opacity-100' : 'opacity-0'
+            }`}
           style={{ transitionDelay: '1.5s' }}
         />
 
         <p
-          className={`font-lato font-light tracking-[0.3em] text-ivory/80 uppercase text-base md:text-sm mb-6 transition-all duration-1000 ease-out ${
-            loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
-          }`}
+          className={`font-lato font-light tracking-[0.3em] text-ivory/80 uppercase text-base md:text-sm mb-6 transition-all duration-1000 ease-out ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+            }`}
           style={{ transitionDelay: '1.6s' }}
         >
           Are Getting Married
         </p>
 
         <div
-  className={`flex justify-center mb-2 px-2 transition-all duration-1000 ease-out ${
-    loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
-  }`}
-  style={{ transitionDelay: '1.9s' }}
->
-  <ScratchDate
-    visible={showScratch}
-    onRevealed={handleRevealed}
-    dateLabel={formatScratchDate()}
-  />
-</div>
+          className={`flex justify-center mb-2 px-2 transition-all duration-1000 ease-out ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+            }`}
+          style={{ transitionDelay: '1.9s' }}
+        >
+          <ScratchDate
+            visible={showScratch}
+            onRevealed={handleRevealed}
+            dateLabel={formatScratchDate()}
+          />
+        </div>
 
         <p
-          className={`font-lato font-light tracking-[0.2em] text-ivory/60 uppercase text-sm md:text-xs transition-all duration-1000 ease-out ${
-            loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
-          }`}
+          className={`font-lato font-light tracking-[0.2em] text-ivory/60 uppercase text-sm md:text-xs transition-all duration-1000 ease-out ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+            }`}
           style={{ transitionDelay: '2.1s' }}
         >
           {city.split(',').map(s => s.trim()).join(' · ')}
@@ -378,25 +370,24 @@ const HeroSection = () => {
       </div>
 
       <div
-        className={`absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 transition-all duration-1000 ${
-          loaded ? 'opacity-100' : 'opacity-0'
-        }`}
+        className={`absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 transition-all duration-1000 ${loaded ? 'opacity-100' : 'opacity-0'
+          }`}
         style={{ transitionDelay: '2.5s' }}
       >
         <div className="flex flex-col items-center gap-1 animate-pulse">
-  <span className="font-lato text-gold text-xs tracking-[0.3em] uppercase">
-    Scroll
-  </span>
+          <span className="font-lato text-white text-xs tracking-[0.3em] uppercase">
+            Scroll
+          </span>
 
-    {/* 🔥 Bigger Icon + Glow */}
-    <div className="p-3 rounded-full border border-gold/50">
-      <ChevronDown
-        size={28}
-        className="text-gold animate-bounce drop-shadow-[0_0_10px_rgba(228,175,55,0.8)]"
-      />
-    </div>
+          {/* 🔥 Bigger Icon + Glow */}
+          <div className="p-3 rounded-full border border-gold/50">
+            <ChevronDown
+              size={28}
+              className="text-gold animate-bounce drop-shadow-[0_0_10px_rgba(228,175,55,0.8)]"
+            />
+          </div>
 
-  </div>
+        </div>
       </div>
     </section>
   );
