@@ -286,13 +286,14 @@ const HeroSection = () => {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden"
-      style={{
-        backgroundImage: `url(${heroImage})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center top',
-      }}
+      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-[#050505]"
     >
+      <img
+        src={heroImage}
+        alt="Wedding Background"
+        className="absolute inset-0 w-full h-full object-contain md:object-cover object-center"
+      />
+
       <ConfettiCanvas active={confetti} />
 
       <div className="absolute inset-0" style={{ background: 'var(--gradient-hero)' }} />
