@@ -18,7 +18,7 @@ const InvitationSection = () => {
         <div className="flex items-center justify-center gap-4 mb-12 fade-up">
           <div className="gold-divider" />
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-gold flex-shrink-0">
-            <path d="M12 2L14.09 8.26L21 9L15.5 14.14L17.18 21L12 17.77L6.82 21L8.5 14.14L3 9L9.91 8.26L12 2Z" fill="hsl(var(--gold))" opacity="0.8"/>
+            <path d="M12 2L14.09 8.26L21 9L15.5 14.14L17.18 21L12 17.77L6.82 21L8.5 14.14L3 9L9.91 8.26L12 2Z" fill="hsl(var(--gold))" opacity="0.8" />
           </svg>
           <div className="gold-divider" />
         </div>
@@ -29,7 +29,7 @@ const InvitationSection = () => {
 
         <h2
           className="font-cormorant font-light text-foreground leading-tight mb-6 fade-up delay-200"
-          style={{ fontSize: 'clamp(1.8rem, 4vw, 3rem)' }}
+          style={{ fontSize: 'clamp(1.4rem, 4vw, 3rem)' }}
         >
           With the blessings of our families,
         </h2>
