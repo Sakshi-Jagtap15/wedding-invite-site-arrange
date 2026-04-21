@@ -291,7 +291,7 @@ const HeroSection = () => {
       <img
         src={heroImage}
         alt="Wedding Background"
-        className="absolute inset-0 w-full h-full object-contain md:object-cover object-center"
+        className="absolute inset-0 w-full h-full object-cover object-center"
       />
 
       <ConfettiCanvas active={confetti} />
