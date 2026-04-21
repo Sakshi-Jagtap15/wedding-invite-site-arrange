@@ -380,7 +380,7 @@ const HeroSection = () => {
           </span>
 
           {/* 🔥 Bigger Icon + Glow */}
-          <div className="p-3 rounded-full border border-gold/50">
+          <div className="p-3 rounded-full border border-white/50">
             <ChevronDown
               size={28}
               className="text-white animate-bounce drop-shadow-[0_0_10px_rgba(228,175,55,0.8)]"
