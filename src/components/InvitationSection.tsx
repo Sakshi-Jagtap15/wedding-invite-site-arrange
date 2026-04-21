@@ -29,7 +29,7 @@ const InvitationSection = () => {
 
         <h2
           className="font-cormorant font-light text-foreground leading-tight mb-6 fade-up delay-200"
-          style={{ fontSize: 'clamp(1.4rem, 4vw, 3rem)' }}
+          style={{ fontSize: 'clamp(1.4rem, 3vw, 2.2rem)' }}
         >
           With the blessings of our families,
         </h2>
